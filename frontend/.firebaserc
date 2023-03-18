@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "crowd-coordination": {
+      "hosting": {
+        "frontend": [
+          "crowd-coordination"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "crowd-coordination"
+  }
+}
