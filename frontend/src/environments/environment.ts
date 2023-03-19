@@ -7,6 +7,7 @@ export const environment = {
     apiKey: 'AIzaSyDKMXQFwO5q4Rb6zg4obaZaGAS266FZURY',
     authDomain: 'crowd-coordination.firebaseapp.com',
     messagingSenderId: '1054399247049',
+    databaseURL : 'https://crowd-coordination-default-rtdb.europe-west1.firebasedatabase.app'
   },
   production: false
 };

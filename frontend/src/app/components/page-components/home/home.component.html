@@ -1,0 +1,62 @@
+    <div class="container">
+        <div class="brand">
+            <h1>crowdit</h1>
+            <h5>Request Management System for Crowd Coordination in Case of Emergency Situations</h5>
+        </div>
+        <div class="login">
+            <form #loginForm = 'ngForm' (submit) = 'handleLoginForm(loginForm.value); loginForm.reset()' ngNativeValidate>
+                <input type="email" placeholder="Enter your email" name="email" ngModel required>
+                <input type="password" placeholder="Enter your password" name="password" ngModel required>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="#">Forgot your password?</a>
+                <hr>
+            </form>
+            <button (click) = 'openRegisterForm()' class="w-75 ms-auto me-auto btn btn-success">Create new account</button>
+        </div>
+        <div id="registerField">
+            <form #registerForm = 'ngForm' (submit) = 'handleRegisterForm(registerForm.value); registerForm.reset()' ngNativeValidate>
+                <h2>Register <i class="bi bi-x-lg text-danger fs-4 d-inline float-end" (click) = 'closeRegisterForm()'></i> </h2>
+                <p class="text-secondary">It's quick and easy</p>
+                <hr>
+                <div class="d-flex">
+                    <input type="text" class="me-2" name="name" placeholder="Name" ngModel required>
+                    <input type="text" name="surname" placeholder="Surname" ngModel required>
+                </div>
+                <input type="email" name="email" placeholder="Email" ngModel required>
+                <input type="password" name="password" placeholder="Password" ngModel required>
+                <div class="d-flex">
+                    <input type="number" name="age" class="w-50 me-2" placeholder="Age" ngModel required>
+                    <select name="gender" class="w-50" ngModel required>
+                        <option value="">Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <input type="tel" name="gsm" placeholder="Phone Number" ngModel required>
+                <label for="role">What role do you want to take?</label>
+                <p style="font-size: 11px; margin-bottom: .2rem;" class="ps-2">* Each role has unique use cases. Please choose the best role that matches your reason to use this platform.</p>
+                <select name="role" style="margin-top: 0;">
+                    <option value="supplier">Supplier</option>
+                    <option value="fieldman">Fieldman</option>
+                    <option value="manager">Manager</option>
+                </select>
+                <div class="d-flex">
+                    <div class="w-50 me-2">
+                        <label for="province">Province</label>
+                        <select style="margin-top: .2rem;" name="province" id="province" (change)="handleProvinceSelection($any($event.target).value)" ngModel required>
+                            <option *ngFor="let province of allProvinces" value={{province}}>{{province}}</option>
+                        </select>
+                    </div>
+                    <div class="w-50">
+                        <label for="county">County</label>
+                        <select style="margin-top: .2rem;" name="county" id="county" ngModel required>
+                            <option *ngFor="let county of allCounties" value={{county}}>{{county}}</option>
+                        </select>
+                    </div>
+                </div>
+                <p style="font-size: 12px;">By clicking the Register button, you agree to our<a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a href="#">Cookies Policy</a>. SMS Notifications can be received from us and you can stop these notifications at any time.</p>
+                <button class="btn btn-success w-50 ms-auto me-auto">Register</button>
+            </form>
+        </div>
+    </div>
+    <footer></footer>

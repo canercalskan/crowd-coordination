@@ -1,0 +1,80 @@
+
+.container {
+    display: flex;
+    min-height: 80vh;
+    max-width: 100vw;
+    background-color: #F0F2F5;
+    justify-content:center;
+    align-items: center;
+
+}
+
+h1 {
+    color: #F53D3D;
+}
+
+.login {
+    background-color: #FFFF;
+    padding: 1rem;
+    border-radius: 9px;
+    min-width: 400px;
+    height: max-content;
+}
+
+.brand {
+    max-width: 450px;
+}
+
+input , select{
+    margin: .7rem 0;
+    border: .5px solid rgba(128, 128, 128, 0.47);
+    border-radius: 4px;
+    padding: .5rem 1rem;
+    width: 100%;
+}
+
+input:focus , select:focus{
+    outline: .5px solid #f53d3d30;
+}
+
+input,button {
+    display: block;
+    margin: .7rem 0;
+    width: 100%;
+}
+
+a {
+    margin-left: .5rem;
+}
+
+button {
+    padding: .5rem 1rem;
+}
+
+label {
+    margin-top: .5rem;
+    margin-bottom: 0;
+}
+
+#registerField {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    backdrop-filter: blur(1rem);
+    padding: .7rem;
+   }
+
+#registerField form{
+    background-color: #fffffff4;
+    border-radius: 8px;
+    padding : 1rem 2rem 1rem 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 600px;
+}
