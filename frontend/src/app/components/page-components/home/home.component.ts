@@ -3,6 +3,7 @@ import { UserModel } from "src/app/models/user.model";
 import { AccountService } from "src/app/services/account.service";
 import provinces from "src/assets/json/province-data.json"
 import Swal from "sweetalert2";
+import { Router } from "@angular/router";
 @Component({
     selector : 'home',
     templateUrl : './home.component.html',
@@ -13,13 +14,13 @@ export class HomeComponent {
     alldata = provinces.data;
     allProvinces : string[] = [];
     allCounties : string[] = [];
-    constructor (private accountService : AccountService) {
+    constructor (private accountService : AccountService , private router : Router) {
         this.alldata.forEach(data => {this.allProvinces.push(data.il_adi)});
     }
 
     handleLoginForm(value : {email : string, password : string}) : void {
-        this.accountService.handleLoginRequest(value.email , value.password).then(response => {
-            console.log(response);
+        this.accountService.handleLoginRequest(value.email , value.password).then(() => {
+            this.router.navigate(['/timeline']);
         }).catch(error => {
             console.log(error);
         })
@@ -34,14 +35,17 @@ export class HomeComponent {
 
     handleRegisterForm(value : UserModel) : void {
         this.accountService.handleRegisterRequest(value).then(response => {
-            value.uid = response.user!.uid!;
-            value.password = '*hidden*';
-            this.accountService.saveRegisterData(value).finally(() => {
-                Swal.fire('Success!' , 'You have registered successfully', 'success').then(() => {location.reload})
-            }).catch(error => {Swal.fire('Error' , 'Something went wrong, please contact us.' , 'error')})
-        }).catch(error => {
-            Swal.fire('Error' , 'Something went wrong, please contact us.' , 'error');
-        })
+            response.user!.sendEmailVerification().then(() => {
+                response.user!.updateProfile({displayName : value.name + ' ' + value.surname});
+                value.uid = response.user!.uid!
+                value.password = '*hidden*';
+                this.accountService.saveRegisterData(value).then((r) => {
+                    Swal.fire('Success!' , 'You have registered successfully, before login, check your email for verification link.', 'success').then(() => {location.reload})
+                }).catch(error => {Swal.fire('Error' , 'Something went wrong, please contact us' , 'error')})
+            }).catch(error => {
+                Swal.fire('Error' , 'Something went wrong, please contact us.' , 'error');
+            })
+            })
     }
 
     openRegisterForm() : void {

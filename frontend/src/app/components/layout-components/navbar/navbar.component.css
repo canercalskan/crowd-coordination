@@ -1,0 +1,32 @@
+input:focus {
+    outline: .5px solid #ED5A5A;
+    border: none;
+    box-shadow: none;
+}
+
+
+ul li a:hover {
+    color: #ED5A5A;
+}
+
+.navbar-brand {
+    color: #ED5A5A;
+}
+
+li img {
+    width: 80px;
+    height: 80px;
+}
+
+li img:hover {
+    cursor: pointer;
+}
+
+i {
+    transition: color .3s;
+}
+
+i:hover {
+    cursor: pointer;
+    color: #ED5A5A;
+}

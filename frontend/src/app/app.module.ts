@@ -10,19 +10,27 @@ import { HomeComponent } from './components/page-components/home/home.component'
 import { AccountService } from './services/account.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './components/layout-components/footer/footer.component';
+import { TimelineComponent } from './components/page-components/timeline/timeline.component';
+import { TimelineGuard } from './guards/timeline.guard';
+import { NavbarComponent } from './components/layout-components/navbar/navbar.component';
+import { NotFoundComponent } from './components/page-components/404/not-found.component';
+NotFoundComponent
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent, NavbarComponent,
+    TimelineComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule , FormsModule,
     AccountService,
-    NgbModule
+    NgbModule,
+    TimelineGuard
   ],
   providers: [],
   bootstrap: [AppComponent]
