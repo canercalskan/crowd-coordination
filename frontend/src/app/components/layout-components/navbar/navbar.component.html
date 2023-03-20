@@ -5,15 +5,15 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0" style="gap:10rem;">
+        <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Timeline</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Notifications</a>
+            <a class="nav-link active" href="#">Notifications</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Groups
             </a>
             <ul class="dropdown-menu">
@@ -24,9 +24,9 @@
             </ul>
           </li>
         </ul>
-        <form class="d-flex me-5" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+        <form #searchForm = 'ngForm' class="d-flex me-5" role="search" ngNativeValidate>
+          <input class="form-control me-2" id="search-field" type="search" placeholder="Search" aria-label="Search" required>
+          <i class="bi bi-search" style="margin-top: auto; margin-bottom: auto;"></i>
         </form>
         <li class="nav-item" style="list-style-type: none;">
             <img src="../../../../assets/user.avif" alt="user">

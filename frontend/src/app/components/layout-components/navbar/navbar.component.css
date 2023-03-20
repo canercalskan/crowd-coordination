@@ -5,6 +5,10 @@ input:focus {
 }
 
 
+.navbar-nav {
+   gap:10rem;
+}
+
 ul li a:hover {
     color: #ED5A5A;
 }
@@ -29,4 +33,20 @@ i {
 i:hover {
     cursor: pointer;
     color: #ED5A5A;
+}
+
+#search-field {
+    border: none;
+    border-bottom: .5px solid rgba(128, 128, 128, 0.524);
+}
+
+#search-field:focus {
+    outline: none;
+    border-bottom-color: #ED5A5A;
+}
+
+@media screen and (max-width : 1500px) {
+    .navbar-nav {
+        gap: 5rem;
+    }
 }

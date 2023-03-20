@@ -1,0 +1,13 @@
+<form #newPostForm = 'ngForm' (submit) = 'handleNewPostFormSubmission(newPostForm.value); newPostForm.reset()' ngNativeValidate>
+    <img src="../../../../assets/user.avif" alt="">
+    <textarea name="content" id="content" placeholder="say something.." ngModel required></textarea>
+    <label for="file-upload" class="custom-file-upload ms-1">
+        <i class="bi bi-paperclip fs-5"></i>
+    </label>
+    <input id="file-upload" type="file" name="images" multiple="true" ngModel>
+    <label for="urgent" class="custom-checkbox ms-1">
+        <i class="bi bi-fire" id="urgent-icon" (click) = 'handleUrgentClicked()'></i>
+    </label>
+    <input id="urgent" type="checkbox" name="urgency" value="urgent" ngModel>
+    <button type="submit" class="ms-2">Post</button>
+</form>

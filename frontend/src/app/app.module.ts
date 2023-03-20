@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CanActivate } from '@angular/router';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './components/page-components/home/home.component';
@@ -14,7 +13,9 @@ import { TimelineComponent } from './components/page-components/timeline/timelin
 import { TimelineGuard } from './guards/timeline.guard';
 import { NavbarComponent } from './components/layout-components/navbar/navbar.component';
 import { NotFoundComponent } from './components/page-components/404/not-found.component';
-NotFoundComponent
+import { PostsComponent } from './components/layout-components/posts/posts.component';
+import { PostService } from './services/post.service';
+import { NewPostComponent } from './components/layout-components/new-post/new-post.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ NotFoundComponent
     HomeComponent,
     FooterComponent, NavbarComponent,
     TimelineComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    PostsComponent , NewPostComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,8 @@ NotFoundComponent
     AppRoutingModule , FormsModule,
     AccountService,
     NgbModule,
-    TimelineGuard
+    TimelineGuard,
+    PostService
   ],
   providers: [],
   bootstrap: [AppComponent]
