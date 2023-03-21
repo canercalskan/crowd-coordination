@@ -46,6 +46,7 @@ export class NewPostComponent {
             let newPost = new PostModel(this.selectedFile);
             newPost.authorUid = this.currentUser.uid!;
             newPost.authorName = this.currentUser.displayName!;
+            newPost.authorImage = this.currentUser.photoURL!;
             newPost.status = 'active';
             newPost.content = value.content;
             newPost.urgency = value.urgency;

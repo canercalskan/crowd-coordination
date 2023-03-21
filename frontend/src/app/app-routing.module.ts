@@ -10,6 +10,7 @@ const routes: Routes = [
   {path : '' , component : HomeComponent , canActivate : [LoginGuard]},
   {path : 'home' , component : HomeComponent , canActivate : [LoginGuard]},
   {path : 'timeline' , component : TimelineComponent , canActivate : [TimelineGuard]},
+  {path : 'timeline/:postkey' , component : TimelineComponent , canActivate : [TimelineGuard]},
   {path : '**' , component : NotFoundComponent}
 ];
 

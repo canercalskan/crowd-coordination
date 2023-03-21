@@ -1,8 +1,24 @@
 <new-post></new-post>
+<hr>
 <div class="container">
     <ul>
         <li *ngFor="let post of allPosts">
-            
+            <div class="post-author-field">
+                <img src="../../../../assets/user.avif" alt="anon-user" *ngIf="!post.authorImage">
+                <img src={{post.authorImage}} alt="user-img" *ngIf="post.authorImage">
+                <b>{{post.authorName}}</b>
+                 <!-- <i class="bi bi-three-dots"></i> -->
+            </div>
+            <div class="post-content-field">
+                <p>{{post.content}}</p>
+                <span class="post-content-img-field">
+                    <img *ngIf="post.imageURL" src={{post.imageURL}} alt="content-image">
+                </span>
+            </div>
+            <div class="post-actions-field">
+                <i class="bi bi-chat"></i>
+                <i class="bi bi-heart"></i>
+            </div>
         </li>
     </ul>
 </div>
