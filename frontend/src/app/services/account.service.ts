@@ -2,11 +2,14 @@ import { Injectable, NgModule } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth'
 import { AngularFireDatabase } from '@angular/fire/compat/database'
 import { Observable } from 'rxjs';
+import { PostModel } from '../models/post.model';
 import { UserModel } from '../models/user.model';
+import Swal from 'sweetalert2';
 
 @NgModule()
 @Injectable({providedIn: 'root'})
 export class AccountService {
+
     constructor(private fireAuth : AngularFireAuth , private db : AngularFireDatabase) { }
 
     handleRegisterRequest(data : UserModel) : Promise<firebase.default.auth.UserCredential>{
@@ -29,3 +32,4 @@ export class AccountService {
        return this.fireAuth.signOut();
     }
 }
+

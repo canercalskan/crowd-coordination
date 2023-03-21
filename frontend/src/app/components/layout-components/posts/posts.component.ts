@@ -12,7 +12,7 @@ export class PostsComponent implements OnInit{
     constructor (private postService : PostService) {}
     ngOnInit(): void {
         this.postService.getPosts().subscribe(response => {
-            this.allPosts = response.filter(post => post.status !== 'assigned'); //bir gruba veya kişiye assign edilmemiş postları listele.
+            this.allPosts = response.filter(post => post.status !== 'assigned');
         })
     }
 }

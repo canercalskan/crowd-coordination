@@ -8,6 +8,7 @@
                 <input type="email" placeholder="Enter your email" name="email" ngModel required>
                 <input type="password" placeholder="Enter your password" name="password" ngModel required>
                 <button type="submit" class="btn btn-primary">Login</button>
+                <p *ngIf="passwordError" class="text-danger">Invalid credentials, try again.</p>
                 <a href="#">Forgot your password?</a>
                 <hr>
             </form>

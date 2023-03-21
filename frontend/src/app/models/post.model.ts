@@ -1,12 +1,17 @@
 import { CommentModel } from "./comment.model";
-import { UserModel } from "./user.model";
 
-export interface PostModel {
-    key : string,
-    author : UserModel,
-    images : FileList;
-    content : string,
-    status : string,
-    urgency : string,
-    comments : CommentModel, 
+export class PostModel {
+    key! : string
+    authorUid! : string
+    authorName! : string
+    date! : string
+    images! : FileList;
+    content! : string
+    status! : string
+    urgency! : string
+    comments! : CommentModel 
+    imageURL! : string
+    constructor(cartImage : FileList) {
+        this.images = cartImage;
+    }
 }

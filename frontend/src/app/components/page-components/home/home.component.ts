@@ -14,15 +14,18 @@ export class HomeComponent {
     alldata = provinces.data;
     allProvinces : string[] = [];
     allCounties : string[] = [];
+    passwordError! : boolean;
+
     constructor (private accountService : AccountService , private router : Router) {
         this.alldata.forEach(data => {this.allProvinces.push(data.il_adi)});
     }
 
     handleLoginForm(value : {email : string, password : string}) : void {
         this.accountService.handleLoginRequest(value.email , value.password).then(() => {
+            this.passwordError = false;
             this.router.navigate(['/timeline']);
         }).catch(error => {
-            console.log(error);
+            this.passwordError = true;
         })
     }
 
