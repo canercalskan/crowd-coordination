@@ -16,6 +16,8 @@ import { NotFoundComponent } from './components/page-components/404/not-found.co
 import { PostsComponent } from './components/layout-components/posts/posts.component';
 import { PostService } from './services/post.service';
 import { NewPostComponent } from './components/layout-components/new-post/new-post.component';
+import { PostDetailsComponent } from './components/page-components/post-details/post-details.component';
+import { NewCommentComponent } from './components/layout-components/new-comment/new-comment.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { NewPostComponent } from './components/layout-components/new-post/new-po
     FooterComponent, NavbarComponent,
     TimelineComponent,
     NotFoundComponent,
-    PostsComponent , NewPostComponent
+    PostsComponent , NewPostComponent, PostDetailsComponent,
+    NewCommentComponent,
   ],
   imports: [
     BrowserModule,

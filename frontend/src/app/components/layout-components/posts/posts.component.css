@@ -15,7 +15,7 @@ hr {
 ul {
     list-style: none;
     width: 100%;
-    border: 1px solid #F7F7F7;
+    border: 1px solid #dedcdc;
     border-radius: 3px;
 }
 
@@ -49,14 +49,30 @@ b {
     left: -.35rem;
 }
 
+.post-content-field p i {
+    color: #d23835;
+}
+
 .post-content-field img {
     width: 100%;
     height: 100%;
     margin-left: 3%;
 }
 
+.post-content-img-field:hover {
+    cursor: pointer;
+}
 
 i {
     padding-top: 1rem;
     text-align: end;
+    transition: all .3s;
+}
+
+i:hover {
+    color: #F27D7B;
+}
+
+.new-comment-field {
+    display: none;
 }

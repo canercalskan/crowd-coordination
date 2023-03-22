@@ -3,6 +3,7 @@ import { PostModel } from "src/app/models/post.model";
 import { PostService } from "src/app/services/post.service";
 import { AccountService } from "src/app/services/account.service";
 import Swal from "sweetalert2";
+
 @Component({
     selector : 'new-post',
     templateUrl : './new-post.component.html',

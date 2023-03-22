@@ -29,8 +29,8 @@
           <i class="bi bi-search" style="margin-top: auto; margin-bottom: auto;"></i>
         </form>
         <li class="nav-item" style="list-style-type: none;">
-            <img src="../../../../assets/user.avif" alt="user">
-            <span class="ms-1">{{displayName}} <i class="bi bi-box-arrow-left ms-2 fs-5" (click) = 'signOut()'></i></span>
+            <img src="../../../../assets/user.avif" alt="user" [routerLink]="['/profile']" routerLinkActive="router-link-active" >
+            <span class=""> <span [routerLink]="['/profile']" routerLinkActive="router-link-active" >{{displayName}}</span> <i class="bi bi-box-arrow-left ms-2 fs-5" (click) = 'signOut()'></i></span>
         </li>
       </div>
     </div>

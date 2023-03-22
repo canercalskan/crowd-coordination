@@ -1,5 +1,5 @@
 export interface CommentModel {
-    like : number,
+    like : number
     dislike : number,
     author : string,
     date : string,

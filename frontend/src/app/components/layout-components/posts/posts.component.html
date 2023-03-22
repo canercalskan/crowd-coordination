@@ -2,22 +2,36 @@
 <hr>
 <div class="container">
     <ul>
-        <li *ngFor="let post of allPosts">
+        <li *ngFor="let post of allPosts" >
             <div class="post-author-field">
                 <img src="../../../../assets/user.avif" alt="anon-user" *ngIf="!post.authorImage">
                 <img src={{post.authorImage}} alt="user-img" *ngIf="post.authorImage">
                 <b>{{post.authorName}}</b>
-                 <!-- <i class="bi bi-three-dots"></i> -->
             </div>
             <div class="post-content-field">
+                <p *ngIf="post.urgency" class="text-danger">
+                    <i class="bi bi-fire" id="urgent-icon"></i> URGENT<i class="bi bi-fire" id="urgent-icon"></i>
+                </p>
                 <p>{{post.content}}</p>
                 <span class="post-content-img-field">
-                    <img *ngIf="post.imageURL" src={{post.imageURL}} alt="content-image">
+                    <img *ngIf="post.imageURL" src={{post.imageURL}} alt="content-image" (click) = 'navigatePostDetails(post.key)'>
                 </span>
             </div>
             <div class="post-actions-field">
-                <i class="bi bi-chat"></i>
-                <i class="bi bi-heart"></i>
+               <span>
+                    <span *ngIf="post.likes">{{post.likes}}</span>
+                    <span *ngIf="!post.likes">0</span>
+                    <i *ngIf="!likedPosts.includes(post.key)" class="bi bi-heart ms-1" style="position: relative; top: 2px;" (click) = 'handleLike(post)'></i>
+                    <i *ngIf="likedPosts.includes(post.key)" class="bi bi-heart-fill ms-1" style="color: #F07B7B; position: relative; top: 2px;" (click) = 'handleLike(post)'></i>
+                </span>
+               <span>
+                <span class="ms-2" *ngIf="post.comments">{{post.comments.length}}</span>
+                <span class="ms-2" *ngIf="!post.comments">0</span>
+                    <i class="bi bi-chat ms-1" (click) = 'openCommentForm(post.key)'></i>
+                </span>
+                <div class="new-comment-field" id={{post.key}}>
+                    <new-comment></new-comment>
+                </div>
             </div>
         </li>
     </ul>

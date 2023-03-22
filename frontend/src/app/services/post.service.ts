@@ -42,15 +42,28 @@ export class PostService {
       }
 
       pushNewPost(data : PostModel) : void {
-        this.db.list(this.basePath).push(data).then(() => {
+        this.db.list(this.basePath).push(data).then((r) => {
+          data.key = r.key!
+          this.db.object<PostModel>('posts/' + data.key).update(data).then(() => {
             Swal.close();
             Swal.fire('Success' , 'Your post has published', 'success').then(() => {
                 return;
             })
-        }).catch(error => {
+          }).catch(error => {
             Swal.close();
             Swal.fire('Error' , 'Something went wrong, contact us.' , 'error')
         })
+          })
+      }
+
+      likePost(post : PostModel) : void {
+        post.likes++;
+        this.db.object<PostModel>('posts/' + post.key).update(post);
+      }
+
+      unlikePost(post : PostModel) : void {
+        post.likes--;
+        this.db.object<PostModel>('posts/' + post.key).update(post);
       }
 
 }

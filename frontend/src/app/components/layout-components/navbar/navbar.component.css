@@ -45,6 +45,10 @@ i:hover {
     border-bottom-color: #ED5A5A;
 }
 
+li span:hover {
+    cursor: pointer;
+}
+
 @media screen and (max-width : 1500px) {
     .navbar-nav {
         gap: 5rem;
