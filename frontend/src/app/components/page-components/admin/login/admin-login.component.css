@@ -1,0 +1,45 @@
+.wrapper {
+    background-image: url('../../../../../assets/admin-bg.jpeg');
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 5.5px );
+    -webkit-backdrop-filter: blur( 5.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    /* padding: 2rem 5rem; */
+    width: 30%;
+    padding: 1rem;
+}
+
+input {
+    display: block;
+    width: 100%;
+    outline: none;
+    border-radius: 6px;
+    border: none;
+    padding: 3px;
+}
+
+
+button {
+    background-color: #ffff;
+    border: 1px solid rgb(69, 69, 217);
+    color: rgb(69, 69, 217);
+    border-radius: 5px;
+    padding: 6px 12px;
+    transition: all .3s;
+}
+
+button:hover {
+    background-color: rgb(69, 69, 217);
+    color: #ffff;
+}

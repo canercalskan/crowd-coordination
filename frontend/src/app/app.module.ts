@@ -18,6 +18,10 @@ import { PostService } from './services/post.service';
 import { NewPostComponent } from './components/layout-components/new-post/new-post.component';
 import { PostDetailsComponent } from './components/page-components/post-details/post-details.component';
 import { NewCommentComponent } from './components/layout-components/new-comment/new-comment.component';
+import { AdminAuthGuard, AdminLoginGuard } from './guards/admin.guard';
+import { AdminLoginComponent } from './components/page-components/admin/login/admin-login.component';
+import { AdminPanelComponent } from './components/page-components/admin/panel/admin-panel.component';
+import { AdminService } from './services/admin.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,7 @@ import { NewCommentComponent } from './components/layout-components/new-comment/
     NotFoundComponent,
     PostsComponent , NewPostComponent, PostDetailsComponent,
     NewCommentComponent,
+    AdminLoginComponent , AdminPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,8 @@ import { NewCommentComponent } from './components/layout-components/new-comment/
     AccountService,
     NgbModule,
     TimelineGuard,
-    PostService
+    PostService,
+    AdminAuthGuard, AdminLoginGuard, AdminService,
   ],
   providers: [],
   bootstrap: [AppComponent]

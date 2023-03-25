@@ -1,0 +1,10 @@
+<div class="wrapper">
+    <form #adminLoginForm = 'ngForm' (submit) = 'handleAdminLogin(adminLoginForm.value); adminLoginForm.reset()' ngNativeValidate>
+        <h4 class="mb-0 pb-0"><i class="bi bi-person-lock d-block text-center fs-1 text-white"></i></h4>
+            <label for="email" class="mb-1 text-white">Email</label>
+            <input type="email" id="email" name="email" ngModel required>
+            <label for="password" class="mt-2 mb-1 text-white">Password</label>
+            <input type="password" id="password" name="password" ngModel required>
+            <button type="submit" class="mt-4 mb-2">Login</button>
+    </form>
+</div>
