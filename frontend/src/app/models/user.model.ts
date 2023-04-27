@@ -10,5 +10,6 @@ export interface UserModel {
     county : string,
     role : string,
     gsm : string,
+    verified : boolean
     //posts : PostModel[]
 }

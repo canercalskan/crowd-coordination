@@ -31,6 +31,14 @@
 .fa {
   font-size: 26px;
 }
+
+table {
+  /* position: relative; */
+  width: 89%;
+  float: right;
+
+}
+
 @media (min-width: 768px) {
   .navbar-nav > li > a {
     padding-top: 15px;
@@ -88,11 +96,31 @@
 body {
   padding-top: 70px;
 }
+
+.bi {
+  font-size: 2rem;
+  transition: all .3s;
+  color: #ffff;
+}
+
+.bi:hover {
+  cursor: pointer;
+  color: #F53D3D;
+}
+
+.navbar-header {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .navbar-fixed-left,
 .navbar-fixed-right {
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 20%;
   z-index: 1030;
 }
 @media (min-width: 768px) {

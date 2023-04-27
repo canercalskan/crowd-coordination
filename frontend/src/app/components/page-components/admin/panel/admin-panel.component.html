@@ -1,54 +1,40 @@
-<div>
-    <div class="tags">
-        <h5><span>crowdit</span></h5>
-        <h5>Admin Panel</h5>
-    </div>
-</div>
-
-<nav class="navbar navbar-inverse navbar-fixed-left">
+<nav class="navbar navbar-inverse navbar-fixed-left" style="width : 10%">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-              <li class="arrow"><a href="#"><i class="fa fa-tachometer"></i><br>Dashboard</a></li>
-           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-table" aria-hidden="true"></i><br>Tables<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Table 1</a></li>
-              <li><a href="#">Table 2</a></li>
-              <li><a href="#">Table 3</a></li>
-              <li><a href="#">Table 4</a></li>
-              <li><a href="#">Table 5</a></li>
-              <li><a href="#">Table 6</a></li>
-             
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-file" aria-hidden="true"></i><br>Report<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Report A</a></li>
-              <li><a href="#">Report B</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-user" aria-hidden="true"></i><br>Attendance<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Team Attendance</a></li>
-              <li><a href="#">User Attendance</a></li>
-            </ul>
-          </li>
-          <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><br>Location</a></li>
-          <li><a href="#"><i class="fa fa-line-chart"></i><br>Sales</a></li>
-        </ul>
-     
+        <i class="bi bi-people" title="Users"></i>
+        <i class="bi bi-diagram-3" title="Groups"></i>
+        <i class="bi bi-envelope-exclamation" title="Help Requests"></i>
+        <i class="bi bi-pencil-square" title="Posts"></i>
+        <i class="bi bi-list-task" title="Tasks"></i>
       </div>
     </div>
   </nav>
 
-<!-- <button (click) = 'handleSignOut()'></button> -->
+    <h3 class="text-center mb-5 mt-1">Total Users : <span style="color : #F53D3D ">{{allUsers.length}}</span></h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Role</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">GSM</th>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">Verification</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="allUsers">
+      <tr *ngFor="let user of allUsers">
+        <td>Groundmen</td>
+        <td>{{user.name}} {{user.surname}}</td>
+        <td>{{user.age}}</td>
+        <td>{{user.gsm}}</td>
+        <td class="text-primary"> <a href="mailto:{{user.email}}" class="text-decoration-none">{{user.email}}</a></td>
+        <td>{{user.province}} / {{user.county}}</td>
+        <td>
+          <span *ngIf="user.verified" class="text-success">Verified</span>
+          <span *ngIf="!user.verified" class="text-danger">Not Verified</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>

@@ -9,10 +9,11 @@ import { TimelineComponent } from './components/page-components/timeline/timelin
 import { AdminAuthGuard, AdminLoginGuard } from './guards/admin.guard';
 import { TimelineGuard } from './guards/timeline.guard';
 import { LoginGuard } from './guards/timeline.guard';
+import { AnonymRequestComponent } from './components/page-components/anonym-request/anonym-request.component';
 
 const routes: Routes = [
-  {path : '' , component : HomeComponent , canActivate : [LoginGuard]},
-  {path : 'home' , component : HomeComponent , canActivate : [LoginGuard]},
+  {path : '' , component : AnonymRequestComponent , canActivate : [LoginGuard]},
+  {path : 'join' , component : HomeComponent , canActivate : [LoginGuard]},
   {path : 'timeline' , component : TimelineComponent , canActivate : [TimelineGuard]},
   {path : 'timeline/posts/:postKey' , component : PostDetailsComponent , canActivate : [TimelineGuard]},
   {path : 'admin' , component : AdminLoginComponent , canActivate : [AdminLoginGuard]},

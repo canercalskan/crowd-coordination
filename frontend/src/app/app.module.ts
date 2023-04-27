@@ -22,6 +22,7 @@ import { AdminAuthGuard, AdminLoginGuard } from './guards/admin.guard';
 import { AdminLoginComponent } from './components/page-components/admin/login/admin-login.component';
 import { AdminPanelComponent } from './components/page-components/admin/panel/admin-panel.component';
 import { AdminService } from './services/admin.service';
+import { AnonymRequestComponent } from './components/page-components/anonym-request/anonym-request.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { AdminService } from './services/admin.service';
     NotFoundComponent,
     PostsComponent , NewPostComponent, PostDetailsComponent,
     NewCommentComponent,
-    AdminLoginComponent , AdminPanelComponent
+    AdminLoginComponent , AdminPanelComponent , AnonymRequestComponent
   ],
   imports: [
     BrowserModule,

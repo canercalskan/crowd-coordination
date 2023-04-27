@@ -37,6 +37,7 @@ export class HomeComponent {
     }
 
     handleRegisterForm(value : UserModel) : void {
+        value.verified = false;
         this.accountService.handleRegisterRequest(value).then(response => {
             response.user!.sendEmailVerification().then(() => {
                 response.user!.updateProfile({displayName : value.name + ' ' + value.surname});
