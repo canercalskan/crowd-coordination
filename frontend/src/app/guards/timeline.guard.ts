@@ -25,7 +25,7 @@ export class TimelineGuard implements CanActivate {
             }
 
             else if(!response) {
-              this.router.navigate(['home'])
+              this.router.navigate(['join'])
               return false
             }
 

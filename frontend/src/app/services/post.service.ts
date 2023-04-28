@@ -4,6 +4,7 @@ import { finalize, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { PostModel } from '../models/post.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { CommentModel } from '../models/comment.model';
 
 @Injectable({providedIn: 'root'})
 @NgModule()
@@ -14,6 +15,10 @@ export class PostService {
 
     getPosts() : Observable<PostModel[]> {
         return this.db.list<PostModel>('posts').valueChanges();
+    }
+
+    getPost(postId : string) {
+      return this.db.object<PostModel>('posts/' + postId).valueChanges();
     }
 
     pushFileToStorage(data : PostModel) : void {
@@ -42,6 +47,7 @@ export class PostService {
       }
 
       pushNewPost(data : PostModel) : void {
+        data.comments = [];
         this.db.list(this.basePath).push(data).then((r) => {
           data.key = r.key!
           this.db.object<PostModel>('posts/' + data.key).update(data).then(() => {
@@ -66,4 +72,7 @@ export class PostService {
         this.db.object<PostModel>('posts/' + post.key).update(post);
       }
 
+      updatePost(post : PostModel) : Promise<void> {
+        return this.db.object<PostModel>('posts/' + post.key).update(post)
+      }
 }

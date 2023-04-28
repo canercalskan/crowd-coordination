@@ -11,10 +11,11 @@ export class PostModel {
     content! : string;
     status! : string;
     urgency! : boolean;
-    comments! : CommentModel[]; 
+    comments : CommentModel[] = []
     imageURL! : string;
     likes : number = 0;
     constructor(cartImage : FileList) {
         this.images = cartImage;
     }
+    commentsClicked : boolean = false;
 }

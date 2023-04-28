@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { UserModel } from '../models/user.model';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AnonymRequestModel } from '../models/anonym-request.model';
 
 @Injectable({providedIn: 'root'})
 @NgModule()
@@ -34,5 +35,17 @@ export class AdminService {
 
     getAllUsers() : Observable<UserModel[]> {
         return this.fireDB.list<UserModel>('users').valueChanges();
+    }
+
+    getAllRequests() {
+        return this.fireDB.list<AnonymRequestModel>('anonym-requests').valueChanges();
+    }
+
+    requestDone(id : string) {
+        return this.fireDB.object<AnonymRequestModel>('anonym-requests/' + id).update({status : 'Done'});
+    }
+    
+    requestActive(id : string) {
+        return this.fireDB.object<AnonymRequestModel>('anonym-requests/' + id).update({status : 'Active'});
     }
 }

@@ -30,16 +30,16 @@ export class AnonymRequestComponent {
         const response = await this.anonymService.getFullAddress(this.getAddressURL);
         response.subscribe((responseData : any) => {
            data.full_address = responseData.results[0].components.state + ', ' + responseData.results[0].components.town + ', '+ responseData.results[0].components.village + ', ' + responseData.results[0].components.road
-        })
-
-        data.coordinates = this.currentCoordinates;
-
-        this.db.list<AnonymRequestModel>('anonym-requests').push(data).then(response => {
-            data.id = response.key!;
-        }).finally(() => {
-            this.db.object<AnonymRequestModel>('anonym-requests/' + data.id).update(data).then(() => {
-                Swal.fire('Success!' , 'Your request has been sent, we will contact you as ASAP' , 'success')
-            })
+           data.status = 'Active';
+           data.coordinates = this.currentCoordinates;
+   
+           this.db.list<AnonymRequestModel>('anonym-requests').push(data).then(response => {
+               data.id = response.key!;
+           }).finally(() => {
+               this.db.object<AnonymRequestModel>('anonym-requests/' + data.id).update(data).then(() => {
+                   Swal.fire('Success!' , 'Your request has been sent, we will contact you as ASAP' , 'success')
+               })
+           })
         })
     }
 }

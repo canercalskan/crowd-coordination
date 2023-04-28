@@ -18,19 +18,26 @@
                 </span>
             </div>
             <div class="post-actions-field">
-               <span>
+               <span style="position: relative; left: .5rem;">
                     <span *ngIf="post.likes">{{post.likes}}</span>
                     <span *ngIf="!post.likes">0</span>
                     <i *ngIf="!likedPosts.includes(post.key)" class="bi bi-heart ms-1" style="position: relative; top: 2px;" (click) = 'handleLike(post)'></i>
                     <i *ngIf="likedPosts.includes(post.key)" class="bi bi-heart-fill ms-1" style="color: #F07B7B; position: relative; top: 2px;" (click) = 'handleLike(post)'></i>
                 </span>
-               <span>
+               <span class="ps-2">
                 <span class="ms-2" *ngIf="post.comments">{{post.comments.length}}</span>
                 <span class="ms-2" *ngIf="!post.comments">0</span>
-                    <i class="bi bi-chat ms-1" (click) = 'openCommentForm(post.key)'></i>
+                    <i class="bi bi-chat ms-1" (click) = 'openCommentForm(post)'></i>
                 </span>
-                <div class="new-comment-field" id={{post.key}}>
-                    <new-comment></new-comment>
+                <div class="comment-field" *ngIf="post.commentsClicked">
+                    <hr style="width: 100%; margin-left: 0; padding-left: 0; left: 0;">
+                    <h6>Comments</h6> <br>
+                    <form #commentForm = 'ngForm' (submit) = 'handleCommentSubmission(post , commentForm.value); commentForm.reset()' ngNativeValidate>
+                        <span>
+                            <input type="text" name="content" placeholder="make a comment.." ngModel>
+                            <button type="submit"><i class="bi bi-send"></i></button>
+                        </span>
+                    </form>
                 </div>
             </div>
         </li>

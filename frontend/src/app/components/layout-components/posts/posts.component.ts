@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { PostModel } from "src/app/models/post.model";
 import { PostService } from "src/app/services/post.service";
 import { Router } from "@angular/router";
+import { CommentModel } from "src/app/models/comment.model";
+import Swal from "sweetalert2";
+import { AccountService } from "src/app/services/account.service";
 @Component({
     selector : 'posts',
     templateUrl : './posts.component.html',
@@ -11,7 +14,7 @@ import { Router } from "@angular/router";
 export class PostsComponent implements OnInit{
     allPosts! : PostModel[];
     likedPosts : string[] = [];
-    constructor (private postService : PostService , private router : Router) {}
+    constructor (private postService : PostService , private router : Router , private AccountService : AccountService) {}
     ngOnInit(): void {
         this.postService.getPosts().subscribe(response => {
             this.allPosts = response.filter(post => post.status !== 'assigned');
@@ -43,13 +46,26 @@ export class PostsComponent implements OnInit{
         this.router.navigate(['timeline/posts/' + postKey]);
     }
 
-    openCommentForm(key : string) : void {
-        const formField = document.getElementById(key);
-        if(formField!.style.display === 'none') {
-            formField!.style.display = 'block';
-        }
-        else {
-            formField!.style.display = 'none';
-        }
+    openCommentForm(post : PostModel) : void {
+        post.commentsClicked = true;
+    }
+
+    handleCommentSubmission(post : PostModel , comment : CommentModel) : void {
+        const date = new Date();
+        this.AccountService.getUser().subscribe(r => {
+            comment.author = r!.displayName!;
+            comment.like = 0;
+            comment.date = date.getDay() + '.' + date.getMonth() + '.' + date.getFullYear();
+            if(post.comments === undefined || post.comments === null) {
+                post.comments = [comment]
+            }
+            else {
+                post.comments.push(comment);
+            }
+
+            this.postService.updatePost(post).then((r) => {console.log(r)}).catch(error => {
+                Swal.fire('Error' , 'Something went wrong, please contact us' , 'error')
+            })
+        })
     }
 }

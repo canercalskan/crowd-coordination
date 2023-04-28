@@ -36,7 +36,24 @@ table {
   /* position: relative; */
   width: 89%;
   float: right;
+}
 
+td .doneButton {
+  background-color: transparent;
+  border: none;
+  background-color: rgb(52, 187, 52);
+  border-radius: 10px;
+  color: #ffff;
+  padding: 5px 10px;
+}
+
+td .activeButton {
+  background-color: transparent;
+  border: none;
+  background-color: red;
+  border-radius: 10px;
+  color: #ffff;
+  padding: 5px 10px;
 }
 
 @media (min-width: 768px) {

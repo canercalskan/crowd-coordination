@@ -17,7 +17,6 @@ import { PostsComponent } from './components/layout-components/posts/posts.compo
 import { PostService } from './services/post.service';
 import { NewPostComponent } from './components/layout-components/new-post/new-post.component';
 import { PostDetailsComponent } from './components/page-components/post-details/post-details.component';
-import { NewCommentComponent } from './components/layout-components/new-comment/new-comment.component';
 import { AdminAuthGuard, AdminLoginGuard } from './guards/admin.guard';
 import { AdminLoginComponent } from './components/page-components/admin/login/admin-login.component';
 import { AdminPanelComponent } from './components/page-components/admin/panel/admin-panel.component';
@@ -34,7 +33,6 @@ import { HttpClientModule } from '@angular/common/http';
     TimelineComponent,
     NotFoundComponent,
     PostsComponent , NewPostComponent, PostDetailsComponent,
-    NewCommentComponent,
     AdminLoginComponent , AdminPanelComponent , AnonymRequestComponent
   ],
   imports: [

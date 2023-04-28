@@ -1,15 +1,16 @@
 <nav class="navbar navbar-inverse navbar-fixed-left" style="width : 10%">
     <div class="container">
       <div class="navbar-header">
-        <i class="bi bi-people" title="Users"></i>
-        <i class="bi bi-diagram-3" title="Groups"></i>
-        <i class="bi bi-envelope-exclamation" title="Help Requests"></i>
-        <i class="bi bi-pencil-square" title="Posts"></i>
-        <i class="bi bi-list-task" title="Tasks"></i>
+        <i class="bi bi-people" title="Users" (click) = 'routeUsers()'></i>
+        <i class="bi bi-diagram-3" title="Groups" (click) = 'routeGroups()'></i>
+        <i class="bi bi-envelope-exclamation" title="Help Requests" (click) = 'routeRequests()'></i>
+        <i class="bi bi-pencil-square" title="Posts" (click) = 'routePosts()'></i>
+        <i class="bi bi-list-task" title="Tasks" (click) = 'routeTasks()'></i>
       </div>
     </div>
   </nav>
 
+  <div class="users-field" *ngIf="usersClicked">
     <h3 class="text-center mb-5 mt-1">Total Users : <span style="color : #F53D3D ">{{allUsers.length}}</span></h3>
   <table class="table table-striped">
     <thead>
@@ -38,3 +39,44 @@
       </tr>
     </tbody>
   </table>
+  </div>
+
+  <div class="groups-field" *ngIf="groupsClicked"></div>
+
+  <div class="requests-field" *ngIf="requestsClicked">
+    <h3 class="text-center mb-2 mt-1"><span>{{allRequests.length}}</span> Anonymous Requests</h3>
+    <h6 class="text-danger text-center mb-3">If the address is not certain, use coordinates via Google Maps to locate the request</h6>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>GSM</th>
+          <th>Details</th>
+          <th>Address</th>
+          <th>Coordinates</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of allRequests">
+          <td>{{request.name}}</td>
+          <td class="text-primary">{{request.gsm}}</td>
+          <td>{{request.details}}</td>
+          <td>{{request.full_address}}</td>
+          <td>{{request.coordinates}}</td>
+          <td *ngIf="request.status === 'Active'" class="text-danger">{{request.status}}</td>
+          <td *ngIf="request.status === 'Done'" class="text-success">{{request.status}}</td>
+          <td>
+            <button class="activeButton" *ngIf="request.status === 'Active'" (click) = 'requestDone(request.id)'>Close</button>
+            <button class="doneButton" *ngIf="request.status === 'Done'" (click) = 'requestActive(request.id)'>Open</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="posts-field" *ngIf="postsClicked"></div>
+
+  <div class="tasks-field" *ngIf="tasksClicked"></div>

@@ -76,3 +76,25 @@ i:hover {
 .new-comment-field {
     display: none;
 }
+
+.post-actions-field {
+    position: relative;
+    left: -1rem;
+}
+
+.comment-field form span {
+    width: 100%;
+}
+
+.comment-field form input{
+    border: .5px solid grey;
+    width: 96%;
+    outline: none;
+    padding: 5px;
+}
+
+.comment-field form i {
+    display: inline;
+    position: relative;
+    left: 10px;
+}
