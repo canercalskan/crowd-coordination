@@ -9,5 +9,6 @@ export const environment = {
     messagingSenderId: '1054399247049',
     databaseURL : 'https://crowd-coordination-default-rtdb.europe-west1.firebasedatabase.app'
   },
-  production: false
+  production: false,
+  api_key : 'e106d270b1e044f4bec04ac49b45b0b9'
 };

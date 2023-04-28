@@ -23,6 +23,8 @@ import { AdminLoginComponent } from './components/page-components/admin/login/ad
 import { AdminPanelComponent } from './components/page-components/admin/panel/admin-panel.component';
 import { AdminService } from './services/admin.service';
 import { AnonymRequestComponent } from './components/page-components/anonym-request/anonym-request.component';
+import { AnonymService } from './services/anonym.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,11 +41,13 @@ import { AnonymRequestComponent } from './components/page-components/anonym-requ
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule , FormsModule,
+    HttpClientModule,
     AccountService,
     NgbModule,
     TimelineGuard,
     PostService,
     AdminAuthGuard, AdminLoginGuard, AdminService,
+    AnonymService
   ],
   providers: [],
   bootstrap: [AppComponent]

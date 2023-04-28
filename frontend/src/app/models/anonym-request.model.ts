@@ -4,4 +4,6 @@ export interface AnonymRequestModel {
     gsm : string;
     details : string;
     coordinates : string;
+    full_address : string;
+    status : string;
 }
