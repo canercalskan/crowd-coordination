@@ -1,100 +1,59 @@
-.container {
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
+.wrapper {
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-hr {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+.post {
+    border: .5px solid rgb(213, 213, 213);
+    width: 40%;
+    margin: .5rem;
+    padding: .5rem;
 }
 
-ul {
-    list-style: none;
+.post-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;;
+}
+
+.post-content img {
     width: 100%;
-    border: 1px solid #dedcdc;
-    border-radius: 3px;
-}
-
-ul li {
-    border-bottom: 1px solid #edeaea;
-    padding: .5rem 1rem;
-}
-
-img {
-    display: inline;
-    width: 60px;
-    height: 60px;
+    height: 300px;
     position: relative;
-    left: -5%;
 }
 
-b {
-    position: relative;
-    left: -5%;
+.post-actions span i {
+    padding-left: 2px;
 }
 
-.post-author-field {
-    display: block;
-    width: 110%;
-    margin-left: 0;
-    padding-left: 0;
-}
-
-.post-content-field {
-    position: relative;
-    left: -.35rem;
-}
-
-.post-content-field p i {
-    color: #d23835;
-}
-
-.post-content-field img {
-    width: 100%;
-    height: 100%;
-    margin-left: 3%;
-}
-
-.post-content-img-field:hover {
-    cursor: pointer;
-}
-
-i {
-    padding-top: 1rem;
-    text-align: end;
-    transition: all .3s;
-}
-
-i:hover {
-    color: #F27D7B;
-}
-
-.new-comment-field {
-    display: none;
-}
-
-.post-actions-field {
-    position: relative;
-    left: -1rem;
-}
-
-.comment-field form span {
-    width: 100%;
-}
-
-.comment-field form input{
-    border: .5px solid grey;
-    width: 96%;
+form input {
+    width: 95%;
+    padding: 10px;
     outline: none;
-    padding: 5px;
+    border: .5px solid #cacaca;
+    border-radius: 5px;
 }
 
-.comment-field form i {
-    display: inline;
-    position: relative;
-    left: 10px;
+button {
+    background-color: #ffff;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: min-content;
+}
+
+.comment {
+    background-color: rgba(203, 203, 203, 0.148);
+    padding: .5rem;
+    margin-top: .5rem;
+}
+
+@media screen and (max-width : 900px) {
+    .post {
+        width: 80%;
+    }
 }

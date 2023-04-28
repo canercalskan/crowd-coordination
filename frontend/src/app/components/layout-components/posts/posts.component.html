@@ -1,45 +1,38 @@
 <new-post></new-post>
-<hr>
-<div class="container">
-    <ul>
-        <li *ngFor="let post of allPosts" >
-            <div class="post-author-field">
-                <img src="../../../../assets/user.avif" alt="anon-user" *ngIf="!post.authorImage">
-                <img src={{post.authorImage}} alt="user-img" *ngIf="post.authorImage">
-                <b>{{post.authorName}}</b>
-            </div>
-            <div class="post-content-field">
-                <p *ngIf="post.urgency" class="text-danger">
-                    <i class="bi bi-fire" id="urgent-icon"></i> URGENT<i class="bi bi-fire" id="urgent-icon"></i>
-                </p>
-                <p>{{post.content}}</p>
-                <span class="post-content-img-field">
-                    <img *ngIf="post.imageURL" src={{post.imageURL}} alt="content-image" (click) = 'navigatePostDetails(post.key)'>
-                </span>
-            </div>
-            <div class="post-actions-field">
-               <span style="position: relative; left: .5rem;">
-                    <span *ngIf="post.likes">{{post.likes}}</span>
-                    <span *ngIf="!post.likes">0</span>
-                    <i *ngIf="!likedPosts.includes(post.key)" class="bi bi-heart ms-1" style="position: relative; top: 2px;" (click) = 'handleLike(post)'></i>
-                    <i *ngIf="likedPosts.includes(post.key)" class="bi bi-heart-fill ms-1" style="color: #F07B7B; position: relative; top: 2px;" (click) = 'handleLike(post)'></i>
-                </span>
-               <span class="ps-2">
-                <span class="ms-2" *ngIf="post.comments">{{post.comments.length}}</span>
-                <span class="ms-2" *ngIf="!post.comments">0</span>
-                    <i class="bi bi-chat ms-1" (click) = 'openCommentForm(post)'></i>
-                </span>
-                <div class="comment-field" *ngIf="post.commentsClicked">
-                    <hr style="width: 100%; margin-left: 0; padding-left: 0; left: 0;">
-                    <h6>Comments</h6> <br>
-                    <form #commentForm = 'ngForm' (submit) = 'handleCommentSubmission(post , commentForm.value); commentForm.reset()' ngNativeValidate>
-                        <span>
-                            <input type="text" name="content" placeholder="make a comment.." ngModel>
-                            <button type="submit"><i class="bi bi-send"></i></button>
-                        </span>
-                    </form>
+<div class="wrapper">
+    <div class="post" *ngFor="let post of allPosts">
+        <div class="post-author">
+            <img src="../../../../assets/user.avif" alt="">
+            <span>{{post.authorName}}</span>
+            <span class="float-end" style="position: relative; top: .6rem; color: #ED5A5A;" *ngIf="post.urgency === true"><i class="bi bi-fire"></i> URGENT <i class="bi bi-fire"></i></span>
+            <p class="text-muted" style="font-size: 14px; margin-left: 3.1rem; margin-top: -1rem;">{{post.date}}</p>
+        </div>
+        <div class="post-content">
+            <p class="ps-3">{{post.content}}</p>
+            <img src={{post.imageURL}} alt="post_img">
+        </div>
+        <div class="post-actions ms-2 fs-6">
+            <span class="me-2" *ngIf="!likedPosts.includes(post.key)">{{post.likes}}<i class="bi bi-hand-thumbs-up" (click) = 'handleLike(post)'></i></span>
+            <span class="me-2" *ngIf="likedPosts.includes(post.key)">{{post.likes}}<i class="bi bi-hand-thumbs-up-fill" style="color: #ED5A5A;" (click) = 'handleLike(post)'></i></span>
+            <span *ngIf="post.comments">{{post.comments.length}}<i class="bi bi-chat-dots" (click) = 'openCommentForm(post)'></i></span>
+            <span *ngIf="!post.comments">0<i class="bi bi-chat-dots" (click) = 'openCommentForm(post)'></i></span>
+        </div>
+        <div class="mt-2" *ngIf="post.commentsClicked">
+            <hr>
+            <h6>Comments <span *ngIf="post.comments">({{post.comments.length}})</span></h6>
+            <p *ngIf="!post.comments" class="text-muted text-center">No comments so far..</p>
+            <div *ngIf="post.comments">
+                <div *ngFor="let comment of post.comments" class="comment">
+                    <span style="color: #ED5A5A;">{{comment.author}} <span class="float-end">{{comment.date}}</span></span>
+                    <hr class="w-100" style="border-style: dashed; margin-top: 0;">
+                    <p>{{comment.content}}</p>
                 </div>
             </div>
-        </li>
-    </ul>
+            <form #commentForm = 'ngForm' class="mt-2" (submit) ='handleCommentSubmission(post , commentForm.value); commentForm.reset()'>
+                <input type="text" name="content" placeholder="make a comment.." ngModel>
+                <button type="submit"><i class="bi bi-send ms-1"></i></button>
+            </form>
+        </div>
+    </div>
 </div>
+

@@ -18,6 +18,7 @@ export class PostsComponent implements OnInit{
     ngOnInit(): void {
         this.postService.getPosts().subscribe(response => {
             this.allPosts = response.filter(post => post.status !== 'assigned');
+            this.allPosts[0]
         })
 
         if(localStorage.getItem('likedPosts')) {
@@ -29,7 +30,6 @@ export class PostsComponent implements OnInit{
     }
 
     handleLike(post : PostModel) : void {
-        console.log('Liked posts :' + this.likedPosts);
         if(!this.likedPosts.includes(post.key)) {
             this.postService.likePost(post);
             this.likedPosts.push(post.key);
@@ -68,4 +68,6 @@ export class PostsComponent implements OnInit{
             })
         })
     }
+
+    handleCommentLike() : void {}
 }

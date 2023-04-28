@@ -44,6 +44,7 @@ export class NewPostComponent {
             }
           })
           if(this.selectedFile) {
+            const date = new Date();
             let newPost = new PostModel(this.selectedFile);
             newPost.authorUid = this.currentUser.uid!;
             newPost.authorName = this.currentUser.displayName!;
@@ -51,6 +52,7 @@ export class NewPostComponent {
             newPost.status = 'active';
             newPost.content = value.content;
             newPost.urgency = value.urgency;
+            newPost.date = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear();
             this.postService.pushFileToStorage(newPost);
           }
           else {
