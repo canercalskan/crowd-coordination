@@ -45,7 +45,10 @@ export class HomeComponent {
                 value.uid = response.user!.uid!
                 value.password = '*hidden*';
                 this.accountService.saveRegisterData(value).then((r) => {
-                    Swal.fire('Success!' , 'You have registered successfully, before login, check your email for verification link.', 'success').then(() => {location.reload})
+                    value.key = r.key!;
+                    this.accountService.updateRegisterData(value).finally(() => {
+                        Swal.fire('Success!' , 'You have registered successfully, before login, check your email for verification link.', 'success').then(() => {location.reload})
+                    })
                 }).catch(error => {Swal.fire('Error' , 'Something went wrong, please contact us' , 'error')})
             }).catch(error => {
                 Swal.fire('Error' , 'Something went wrong, please contact us.' , 'error');

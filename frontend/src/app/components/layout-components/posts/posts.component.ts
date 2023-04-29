@@ -18,7 +18,7 @@ export class PostsComponent implements OnInit{
     ngOnInit(): void {
         this.postService.getPosts().subscribe(response => {
             this.allPosts = response.filter(post => post.status !== 'assigned');
-            this.allPosts[0]
+            console.log(this.allPosts)
         })
 
         if(localStorage.getItem('likedPosts')) {

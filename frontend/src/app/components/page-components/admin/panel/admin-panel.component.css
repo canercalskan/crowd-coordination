@@ -1,4 +1,3 @@
-
 .tags {
     display: flex;
     justify-content:space-evenly;
@@ -54,6 +53,34 @@ td .activeButton {
   border-radius: 10px;
   color: #ffff;
   padding: 5px 10px;
+}
+
+.filter-field {
+  background-color: #435f7d;
+  padding: .5rem;
+  font-size: 15px;
+  color: #ffff;
+}
+
+#filter {
+  border: none;
+  color: #ffff;
+  background-color: #435f7d;
+  outline: none;
+  font-size: 14px;
+}
+
+#filter option {
+  border : none;
+}
+
+a {
+  color: #ffff;
+  text-decoration: none;
+  font-size: 13px;
+  background-color: #1C9BEF;
+  padding: 5px 10px;
+  border-radius: 20px;
 }
 
 @media (min-width: 768px) {

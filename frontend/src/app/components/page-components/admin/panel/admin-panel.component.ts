@@ -16,14 +16,19 @@ export class AdminPanelComponent implements OnInit{
     requestsClicked : boolean = true;
     postsClicked : boolean = false;
     tasksClicked : boolean = false;
+    allClicked : boolean = true;
+    activeClicked : boolean = false;
+    doneClicked : boolean = false;
     allUsers! : UserModel[];
     allRequests! : AnonymRequestModel[];
+    tempAllRequests! : AnonymRequestModel[];
+    
     constructor (private adminService : AdminService) {}
    async ngOnInit() {
     Swal.showLoading();
         this.adminService.getAllRequests().subscribe(response => {
             this.allRequests = response;
-            console.log(this.allRequests)
+            this.tempAllRequests = this.allRequests;
         } , error => {
             Swal.fire('Error' , 'Something went wrong, please contact the developers (code : ' + error.code+')');
         })
@@ -89,6 +94,22 @@ export class AdminPanelComponent implements OnInit{
         }).catch(error => {
             Swal.fire('Error' , 'Something went wrong, please contact the developers')
         })
+    }
+
+    filterRequests(event : any) : void {
+        if(event.target.value === 'all') {
+            this.allRequests = this.tempAllRequests;
+            this.allClicked = true
+        }
+        else if(event.target.value === 'active') {
+            this.activeClicked = true
+            this.allRequests = this.tempAllRequests.filter(request => request.status === 'Active')
+        }
+
+        else if(event.target.value === 'done') {
+            this.doneClicked = true
+            this.allRequests = this.tempAllRequests.filter(request => request.status === 'Done');
+        }
     }
 
 }

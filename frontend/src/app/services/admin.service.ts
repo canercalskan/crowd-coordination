@@ -12,7 +12,7 @@ export class AdminService {
     constructor(private fireAuth : AngularFireAuth , private fireDB : AngularFireDatabase) { }
     authAdmin(data : {email : string , password : string}) : void {
         this.fireAuth.signInWithEmailAndPassword(data.email , data.password).then((r) => {
-            if(r.user!.uid !== 'X3RuvaVTRjNPbBCeq8lFVYHyS2y2') {
+            if(r.user!.uid !== 'O5TldtNTFeh0xawoHyYrq9qQ6Mi2') {
                 Swal.fire('Error' , 'Access Denied' , 'error').then(() => {
                     this.fireAuth.signOut();
                 }).finally(() => {

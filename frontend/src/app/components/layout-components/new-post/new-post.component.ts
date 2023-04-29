@@ -49,7 +49,7 @@ export class NewPostComponent {
             newPost.authorUid = this.currentUser.uid!;
             newPost.authorName = this.currentUser.displayName!;
             newPost.authorImage = this.currentUser.photoURL!;
-            newPost.status = 'active';
+            newPost.status = 'waiting';
             newPost.content = value.content;
             newPost.urgency = value.urgency;
             newPost.date = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear();

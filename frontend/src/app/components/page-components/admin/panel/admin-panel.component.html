@@ -26,7 +26,7 @@
     </thead>
     <tbody *ngIf="allUsers">
       <tr *ngFor="let user of allUsers">
-        <td>Groundmen</td>
+        <td>{{user.role}}</td>
         <td>{{user.name}} {{user.surname}}</td>
         <td>{{user.age}}</td>
         <td>{{user.gsm}}</td>
@@ -46,6 +46,13 @@
   <div class="requests-field" *ngIf="requestsClicked">
     <h3 class="text-center mb-2 mt-1"><span>{{allRequests.length}}</span> Anonymous Requests</h3>
     <h6 class="text-danger text-center mb-3">If the address is not certain, use coordinates via Google Maps to locate the request</h6>
+    <div class="text-end filter-field">
+      <select name="filter" id="filter" (change) = 'filterRequests($event)'>
+        <option value="all">All</option>
+        <option value="done">Done</option>
+        <option value="active">Active</option>
+      </select>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -55,7 +62,7 @@
           <th>Address</th>
           <th>Coordinates</th>
           <th>Status</th>
-          <th>Actions</th>
+          <th class="text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -70,6 +77,7 @@
           <td>
             <button class="activeButton" *ngIf="request.status === 'Active'" (click) = 'requestDone(request.id)'>Close</button>
             <button class="doneButton" *ngIf="request.status === 'Done'" (click) = 'requestActive(request.id)'>Open</button>
+            <a href="https://twitter.com/intent/tweet?text={{request.details}}%20{{request.full_address}}%20{{request.coordinates}}&hashtags=help,crowdit" target="_blank"><i class="bi bi-twitter" style="color:#ffff; font-size: 15px;"></i> Tweet</a>
           </td>
         </tr>
       </tbody>

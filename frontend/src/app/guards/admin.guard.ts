@@ -14,7 +14,7 @@ export class AdminAuthGuard implements CanActivate {
 
     checkAuth() : Observable<boolean> {
         return this.fireAuth.user.pipe(map((response) => {
-            if(response && response.uid === 'X3RuvaVTRjNPbBCeq8lFVYHyS2y2') {
+            if(response && response.uid === 'O5TldtNTFeh0xawoHyYrq9qQ6Mi2') {
               return true;
             }
             else {
@@ -36,7 +36,7 @@ export class AdminLoginGuard implements CanActivate {
 
   checkAuth() : Observable<boolean> {
     return this.fireAuth.user.pipe(map((response) => {
-        if(response && response.uid === 'X3RuvaVTRjNPbBCeq8lFVYHyS2y2') {
+        if(response && response.uid === 'O5TldtNTFeh0xawoHyYrq9qQ6Mi2') {
           this.router.navigate(['admin/panel']);
           return false;
         }

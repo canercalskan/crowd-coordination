@@ -19,6 +19,10 @@ export class AccountService {
     saveRegisterData(data : UserModel) : Promise<firebase.default.database.ThenableReference> {
         return this.db.list<UserModel>('users').push(data).then();
     }
+
+    updateRegisterData(data : UserModel) {
+        return this.db.object<UserModel>('users/' + data.key).update(data);
+    }
     
     async handleLoginRequest(email: string, password: string): Promise<firebase.default.auth.UserCredential> {
         return this.fireAuth.signInWithEmailAndPassword(email , password);
