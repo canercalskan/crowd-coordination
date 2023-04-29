@@ -1,0 +1,39 @@
+<navbar></navbar>
+<div class="wrapper">
+    <img src="../../../../assets/user.avif" alt="" id="pp">
+    <div class="text-center">
+        <p> <span class="text-success fw-bold">{{user.role}}</span> {{user.name}} {{user.surname}}</p>
+        <p>{{user.email}}</p>
+        <p>{{user.gsm}}</p>
+        <p>{{user.province}} / {{user.county}}</p>
+    </div>
+</div>
+<div class="container">
+    <h4>Your posts <span *ngIf="userPosts">({{userPosts.length}})</span><span *ngIf="!userPosts">(0)</span></h4>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Author</th>
+            <th>Content</th>
+            <th>Image</th>
+            <th>Urgency</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let post of userPosts">
+            <td>{{post.authorName}}</td>
+            <td>{{post.content}}</td>
+            <td><img *ngIf="post.imageURL" src={{post.imageURL}} alt="post-image" style="width: 200px; height: 100px;"></td>
+            <td>
+              <span *ngIf="post.urgency"><i class="bi bi-fire" style="color: #F53D3D;"></i></span>
+              <span *ngIf="!post.urgency">-</span>
+            </td>
+            <td>
+              <span *ngIf="post.status === 'waiting'" class="text-warning">Waiting</span>
+              <span *ngIf="post.status === 'confirmed'" class="text-success">Confirmed</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>

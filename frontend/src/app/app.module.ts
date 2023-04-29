@@ -24,6 +24,7 @@ import { AdminService } from './services/admin.service';
 import { AnonymRequestComponent } from './components/page-components/anonym-request/anonym-request.component';
 import { AnonymService } from './services/anonym.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './components/page-components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     TimelineComponent,
     NotFoundComponent,
     PostsComponent , NewPostComponent, PostDetailsComponent,
-    AdminLoginComponent , AdminPanelComponent , AnonymRequestComponent
+    AdminLoginComponent , AdminPanelComponent , AnonymRequestComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

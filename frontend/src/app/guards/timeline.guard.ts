@@ -20,16 +20,13 @@ export class TimelineGuard implements CanActivate {
     checkAuth() : Observable<boolean> {
         return this.fireAuth.user.pipe(map((response) => {
             if(response && response.emailVerified) {
-              // this.fireDB.object<UserModel>('users/' + response.uid).update({verified : true});
               this.fireDB.list<UserModel>('users').valueChanges().subscribe(r => {
-                // r.find(user => user.uid === response.uid)!.verified = true;
                 r.forEach(user => {
                   if(user.uid === response.uid) {
                     user.verified = true;
-                    this.fireDB.object<UserModel>('users/' + user.key).update(user).then(r => {console.log(r)})
+                    this.fireDB.object<UserModel>('users/' + user.key).update(user).then();
                   }
                 })
-                console.log(1);
               })
               return true;
             }

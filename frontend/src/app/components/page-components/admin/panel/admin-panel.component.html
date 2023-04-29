@@ -85,6 +85,45 @@
 
   </div>
 
-  <div class="posts-field" *ngIf="postsClicked"></div>
+  <div class="posts-field" *ngIf="postsClicked">
+    <h3 class="text-center"><span>{{allPosts.length}} </span>Posts</h3>
+    <h6 class="text-danger text-center">Check the content, image and decide if the post is worth to share with all users.</h6>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Content</th>
+          <th>Image</th>
+          <th>Urgency</th>
+          <th>Status</th>
+          <th class="">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of allPosts">
+          <td>{{post.authorName}}</td>
+          <td>{{post.content}}</td>
+          <td><img *ngIf="post.imageURL" src={{post.imageURL}} alt="post-image"></td>
+          <td>
+            <span *ngIf="post.urgency"><i class="bi bi-fire" style="color: #F53D3D;"></i></span>
+            <span *ngIf="!post.urgency">-</span>
+          </td>
+          <td>
+            <span *ngIf="post.status === 'waiting'" class="text-warning">Waiting</span>
+            <span *ngIf="post.status === 'confirmed'" class="text-success">Confirmed</span>
+          </td>
+          <td>
+            <div *ngIf="post.status === 'waiting'" class="post-actions">
+              <i class="bi bi-check2 text-success" (click) = 'handleConfirmPost(post.key)'></i>
+              <i class="bi bi-x text-danger" (click) = 'handleDenyPost(post.key)'></i>
+            </div>
+            <div *ngIf="post.status ==='confirmed'">
+              <i class="bi bi-trash3 text-danger" (click) = 'handleRemovePost(post.key)'></i>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="tasks-field" *ngIf="tasksClicked"></div>

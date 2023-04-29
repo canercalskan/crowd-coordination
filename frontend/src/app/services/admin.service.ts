@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { UserModel } from '../models/user.model';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AnonymRequestModel } from '../models/anonym-request.model';
+import { PostModel } from '../models/post.model';
 
 @Injectable({providedIn: 'root'})
 @NgModule()
@@ -41,11 +42,23 @@ export class AdminService {
         return this.fireDB.list<AnonymRequestModel>('anonym-requests').valueChanges();
     }
 
+    getAllPosts() {
+        return this.fireDB.list<PostModel>('posts').valueChanges();
+    }
+
     requestDone(id : string) {
         return this.fireDB.object<AnonymRequestModel>('anonym-requests/' + id).update({status : 'Done'});
     }
     
     requestActive(id : string) {
         return this.fireDB.object<AnonymRequestModel>('anonym-requests/' + id).update({status : 'Active'});
+    }
+
+    confirmPost(id : string) {
+        return this.fireDB.object<PostModel>('posts/' + id).update({status : 'confirmed'});
+    }
+
+    denyPost(id : string) {
+        return this.fireDB.object<PostModel>('posts/' + id).remove();
     }
 }

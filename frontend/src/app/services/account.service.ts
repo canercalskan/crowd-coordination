@@ -2,9 +2,8 @@ import { Injectable, NgModule } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth'
 import { AngularFireDatabase } from '@angular/fire/compat/database'
 import { Observable } from 'rxjs';
-import { PostModel } from '../models/post.model';
 import { UserModel } from '../models/user.model';
-import Swal from 'sweetalert2';
+import { setCookie , removeCookie} from 'typescript-cookie';
 
 @NgModule()
 @Injectable({providedIn: 'root'})
@@ -28,11 +27,22 @@ export class AccountService {
         return this.fireAuth.signInWithEmailAndPassword(email , password);
     }
 
+    saveUserKey(uid : string) : void {
+        this.db.list<UserModel>('users').valueChanges().subscribe(r => {
+           setCookie('firebase_user_key' , r.find(user => user.uid === uid)!.key);
+        })
+    }
+
     getUser() : Observable<firebase.default.User | null> {
        return this.fireAuth.user;
     }
 
+    getUserDetails(key : string) {
+        return this.db.object<UserModel>('users/' + key).valueChanges();
+    }
+
     handleSignOut() : Promise<void> {
+       removeCookie('firebase_user_key');
        return this.fireAuth.signOut();
     }
 }

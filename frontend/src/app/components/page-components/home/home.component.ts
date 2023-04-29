@@ -21,7 +21,8 @@ export class HomeComponent {
     }
 
     handleLoginForm(value : {email : string, password : string}) : void {
-        this.accountService.handleLoginRequest(value.email , value.password).then(() => {
+        this.accountService.handleLoginRequest(value.email , value.password).then((r) => {
+            this.accountService.saveUserKey(r.user!.uid);
             this.passwordError = false;
             this.router.navigate(['/timeline']);
         }).catch(error => {

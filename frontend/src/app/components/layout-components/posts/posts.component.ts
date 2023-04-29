@@ -17,7 +17,7 @@ export class PostsComponent implements OnInit{
     constructor (private postService : PostService , private router : Router , private AccountService : AccountService) {}
     ngOnInit(): void {
         this.postService.getPosts().subscribe(response => {
-            this.allPosts = response.filter(post => post.status !== 'assigned');
+            this.allPosts = response.filter(post => post.status === 'confirmed');
             console.log(this.allPosts)
         })
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { firstValueFrom } from "rxjs";
 import { AnonymRequestModel } from "src/app/models/anonym-request.model";
+import { PostModel } from "src/app/models/post.model";
 import { UserModel } from "src/app/models/user.model";
 import { AdminService } from "src/app/services/admin.service";
 import Swal from "sweetalert2";
@@ -22,7 +23,7 @@ export class AdminPanelComponent implements OnInit{
     allUsers! : UserModel[];
     allRequests! : AnonymRequestModel[];
     tempAllRequests! : AnonymRequestModel[];
-    
+    allPosts : PostModel[] = [];
     constructor (private adminService : AdminService) {}
    async ngOnInit() {
     Swal.showLoading();
@@ -69,6 +70,9 @@ export class AdminPanelComponent implements OnInit{
     }
 
     routePosts() : void {
+        this.adminService.getAllPosts().subscribe(response => {
+            this.allPosts = response;
+        })
         this.usersClicked = false;
         this.requestsClicked = false;
         this.groupsClicked = false;
@@ -110,6 +114,25 @@ export class AdminPanelComponent implements OnInit{
             this.doneClicked = true
             this.allRequests = this.tempAllRequests.filter(request => request.status === 'Done');
         }
+    }
+
+
+    handleConfirmPost(postId : string) : void {
+        this.adminService.confirmPost(postId).then(() => {
+            Swal.fire('Approved' , 'Post approved, it can be seen by all of the users now.' , 'success');
+        })
+    }
+
+    handleDenyPost(postId : string) : void {
+        this.adminService.denyPost(postId).then(() => {
+            Swal.fire('Denied' , 'Post denied and deleted.' , 'info');
+        })
+    }
+
+    handleRemovePost(postId : string) : void {
+        this.adminService.denyPost(postId).then(() => {
+            Swal.fire('Deleted' , 'Post successfully deleted from database.' , 'success');
+        })
     }
 
 }
