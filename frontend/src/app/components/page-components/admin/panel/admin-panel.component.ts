@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { firstValueFrom } from "rxjs";
 import { AnonymRequestModel } from "src/app/models/anonym-request.model";
+import { GroupModel } from "src/app/models/group.model";
 import { PostModel } from "src/app/models/post.model";
 import { UserModel } from "src/app/models/user.model";
 import { AdminService } from "src/app/services/admin.service";
@@ -24,6 +24,12 @@ export class AdminPanelComponent implements OnInit{
     allRequests! : AnonymRequestModel[];
     tempAllRequests! : AnonymRequestModel[];
     allPosts : PostModel[] = [];
+    showGroupCreate : boolean = true;
+    showGroupList : boolean = false;
+    freeUsers! : UserModel[];
+    freeManagers! : UserModel[];
+    selectedUsers : UserModel[] = [];
+    selectedManager! : UserModel | null;
     constructor (private adminService : AdminService) {}
    async ngOnInit() {
     Swal.showLoading();
@@ -54,6 +60,11 @@ export class AdminPanelComponent implements OnInit{
     }
 
     routeGroups() : void {
+        this.adminService.getAllUsers().subscribe(response => {
+            this.freeUsers = response.filter(user => (user.groupId === null || user.groupId === undefined) && user.role !== 'Manager');
+            this.freeManagers = response.filter(user => (user.groupId === null || user.groupId === undefined) && user.role === 'Manager')
+
+        })
         this.postsClicked = false;
         this.tasksClicked = false;
         this.usersClicked = false;
@@ -135,4 +146,58 @@ export class AdminPanelComponent implements OnInit{
         })
     }
 
+    handleGroupsChange(event : any) : void {
+        if(event.target.value === 'list') {
+            this.showGroupCreate = false;
+            this.showGroupList = true;
+        }
+        else if(event.target.value === 'create') {
+            this.showGroupList = false;
+            this.showGroupCreate = true;
+        }
+    }
+
+    addMember(user : UserModel) : void {
+        this.selectedUsers.push(user);
+        console.log(this.selectedUsers)
+    }
+    
+    removeMember(remove : UserModel) : void {
+        this.selectedUsers = this.selectedUsers.filter(user => user !== remove);
+        console.log(this.selectedUsers)
+    }
+
+    addManager(manager : UserModel) : void {
+        this.selectedManager = manager
+    }
+    
+    removeManager(manager : UserModel) : void {
+        this.selectedManager = null;
+    }
+
+    handleGroupCreate(groupData : GroupModel) : void {
+        Swal.showLoading();
+        groupData.members = this.selectedUsers;
+        groupData.manager = this.selectedManager!;
+        if(this.selectedUsers.length > 0 && this.selectedManager !== null) {
+            this.adminService.createGroup(groupData).then(response => {
+                groupData.groupId = response.key!;
+                groupData.members.forEach(member => {
+                    member.groupId = groupData.groupId;
+                })
+                groupData.manager.groupId = groupData.groupId;
+            }).then(() => {
+                this.adminService.updateGroup(groupData);
+                this.adminService.updateUsers(groupData);
+            }).finally(() => {
+                Swal.fire('Success!' , groupData.groupName + ' successfully created' , 'success');
+            }).catch(error => {
+                Swal.fire('Error', 'Something went wrong, please contact developers' ,'error');
+            })
+        }
+
+        else {
+            Swal.fire('Error' , 'Please select at least 1 member and only 1 manager', 'error')
+        }
+    }
 }

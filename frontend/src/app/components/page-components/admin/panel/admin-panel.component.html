@@ -41,7 +41,64 @@
   </table>
   </div>
 
-  <div class="groups-field" *ngIf="groupsClicked"></div>
+  <div class="groups-field" *ngIf="groupsClicked">
+    <h4 class="ms-5 mt-5">New Group</h4>
+    <div class="container">
+      <div class="switches-container">
+        <input type="radio" id="switchMonthly" name="switchPlan" value="create" checked="checked" (change)="handleGroupsChange($event)" />
+        <input type="radio" id="switchYearly" name="switchPlan" value="list" (change)="handleGroupsChange($event)" />
+        <label for="switchMonthly">Create</label>
+        <label for="switchYearly">List</label>
+        <div class="switch-wrapper">
+          <div class="switch">
+            <div>Create</div>
+            <div>List</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showGroupCreate">
+        <form id="createGroupForm" #createGroupForm = 'ngForm' (submit) = 'handleGroupCreate(createGroupForm.value); createGroupForm.reset' ngNativeValidate>
+          <div class="row">
+            <div class="col">
+              <label for="groupName">Group Name</label>
+              <input type="text" name="groupName" ngModel required>
+            </div>
+            <div class="col">
+              <label for="role">Group Role</label>
+              <select name="role" id="role" ngModel required>
+                <option value="suppliers">Suppliers</option>
+                <option value="suppliers">Fieldmans</option>
+              </select>
+            </div>
+          </div>
+          <div class="row" style="width: 25%;">
+            <div class="col">
+              <label for="members" class="text-center mt-3">Add Members</label>
+              <ul id="addMembersField">
+                <li *ngFor="let user of freeUsers">
+                  <span style="font-size: small;">{{user.name}} {{user.surname}}</span>
+                   <i *ngIf="!selectedUsers.includes(user)" class="bi bi-plus-circle ms-1" style="color: blue; font-size: small; float: right; position: relative; top: 4px;" (click)="addMember(user)"></i>
+                   <i *ngIf="selectedUsers.includes(user)" class="bi bi-x-lg ms-1" style="color:red; font-size: small; float: right; position: relative; top: 4px;" (click)="removeMember(user)" ></i>
+                  </li>
+              </ul>
+            </div>
+            <div class="col">
+              <label for="manager" class="mt-3">Assign Manager</label>
+              <ul id="addManagersField">
+                <li *ngFor="let manager of freeManagers">
+                  <span style="font-size: small;">{{manager.name}} {{manager.surname}}</span>
+                    <i *ngIf="selectedManager !== manager" class="bi bi-plus-circle ms-1" style="color: blue; font-size: small; float: right; position: relative; top: 4px;" (click)="addManager(manager)"></i>
+                    <i *ngIf="selectedManager === manager" class="bi bi-x-lg ms-1" style="color:red; font-size: small; float: right; position: relative; top: 4px;" (click)="removeManager(manager)" ></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success w-25">Create</button>
+        </form>
+    </div>
+    <div *ngIf="showGroupList">List</div>
+  </div>
 
   <div class="requests-field" *ngIf="requestsClicked">
     <h3 class="text-center mb-2 mt-1"><span>{{allRequests.length}}</span> Anonymous Requests</h3>
@@ -75,8 +132,9 @@
           <td *ngIf="request.status === 'Active'" class="text-danger">{{request.status}}</td>
           <td *ngIf="request.status === 'Done'" class="text-success">{{request.status}}</td>
           <td>
-            <button class="activeButton" *ngIf="request.status === 'Active'" (click) = 'requestDone(request.id)'>Close</button>
-            <button class="doneButton" *ngIf="request.status === 'Done'" (click) = 'requestActive(request.id)'>Open</button>
+            <button class="activeButton w-100" *ngIf="request.status === 'Active'" (click) = 'requestDone(request.id)'>Close</button>
+            <button class="doneButton w-100" *ngIf="request.status === 'Done'" (click) = 'requestActive(request.id)'>Open</button>
+            <br>
             <a href="https://twitter.com/intent/tweet?text={{request.details}}%20{{request.full_address}}%20{{request.coordinates}}&hashtags=help,crowdit" target="_blank"><i class="bi bi-twitter" style="color:#ffff; font-size: 15px;"></i> Tweet</a>
           </td>
         </tr>

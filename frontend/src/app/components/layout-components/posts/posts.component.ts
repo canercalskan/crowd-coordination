@@ -18,7 +18,6 @@ export class PostsComponent implements OnInit{
     ngOnInit(): void {
         this.postService.getPosts().subscribe(response => {
             this.allPosts = response.filter(post => post.status === 'confirmed');
-            console.log(this.allPosts)
         })
 
         if(localStorage.getItem('likedPosts')) {
@@ -53,19 +52,21 @@ export class PostsComponent implements OnInit{
     handleCommentSubmission(post : PostModel , comment : CommentModel) : void {
         const date = new Date();
         this.AccountService.getUser().subscribe(r => {
-            comment.author = r!.displayName!;
-            comment.like = 0;
-            comment.date = date.getDay() + '.' + date.getMonth() + '.' + date.getFullYear();
-            if(post.comments === undefined || post.comments === null) {
-                post.comments = [comment]
+            if(r!.displayName !== '' || r!.displayName !== null || r!.displayName !== undefined) {
+                comment.author = r!.displayName!;
+                comment.like = 0;
+                comment.date = date.getDay() + '.' + date.getMonth() + '.' + date.getFullYear();
+                if(post.comments === undefined || post.comments === null) {
+                    post.comments = [comment]
+                }
+                else {
+                    post.comments.push(comment);
+                }
+    
+                this.postService.updatePost(post).then((r) => {console.log(r)}).catch(error => {
+                    Swal.fire('Error' , 'Something went wrong, please contact us' , 'error')
+                })
             }
-            else {
-                post.comments.push(comment);
-            }
-
-            this.postService.updatePost(post).then((r) => {console.log(r)}).catch(error => {
-                Swal.fire('Error' , 'Something went wrong, please contact us' , 'error')
-            })
         })
     }
 

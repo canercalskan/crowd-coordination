@@ -6,6 +6,7 @@ import { UserModel } from '../models/user.model';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AnonymRequestModel } from '../models/anonym-request.model';
 import { PostModel } from '../models/post.model';
+import { GroupModel } from '../models/group.model';
 
 @Injectable({providedIn: 'root'})
 @NgModule()
@@ -60,5 +61,20 @@ export class AdminService {
 
     denyPost(id : string) {
         return this.fireDB.object<PostModel>('posts/' + id).remove();
+    }
+    
+    createGroup(groupData : GroupModel) {
+        return this.fireDB.list<GroupModel>('groups').push(groupData);
+    }
+
+    updateGroup(groupData : GroupModel) {
+        return this.fireDB.object<GroupModel>('groups/' + groupData.groupId).update(groupData);
+    }
+
+    updateUsers(groupData : GroupModel) {
+        groupData.members.forEach(member => {
+            this.fireDB.object<UserModel>('users/' + member.key).update(member);
+        })
+        this.fireDB.object<UserModel>('users/' + groupData.manager.key).update(groupData.manager);
     }
 }
