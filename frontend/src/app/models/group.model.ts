@@ -1,3 +1,4 @@
+import { TaskModel } from "./task.model";
 import { UserModel } from "./user.model";
 
 export interface GroupModel {
@@ -5,5 +6,6 @@ export interface GroupModel {
     groupName : string,
     members : UserModel[],
     role : string,
-    manager : UserModel
+    manager : UserModel,
+    tasks : TaskModel[]
 }

@@ -11,6 +11,7 @@ import { TimelineGuard } from './guards/timeline.guard';
 import { LoginGuard } from './guards/timeline.guard';
 import { AnonymRequestComponent } from './components/page-components/anonym-request/anonym-request.component';
 import { ProfileComponent } from './components/page-components/profile/profile.component';
+import { GroupsComponent } from './components/page-components/groups/groups.component';
 
 const routes: Routes = [
   {path : '' , component : AnonymRequestComponent , canActivate : [LoginGuard]},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path : 'timeline' , component : TimelineComponent , canActivate : [TimelineGuard]},
   {path : 'timeline/posts/:postKey' , component : PostDetailsComponent , canActivate : [TimelineGuard]},
   {path : 'profile' , component : ProfileComponent , canActivate : [TimelineGuard]},
+  {path:  'groups' , component : GroupsComponent , canActivate : [TimelineGuard]},
   {path : 'admin' , component : AdminLoginComponent , canActivate : [AdminLoginGuard]},
   {path : 'admin/panel' , component : AdminPanelComponent , canActivate : [AdminAuthGuard]},
   {path : '**' , component : NotFoundComponent}

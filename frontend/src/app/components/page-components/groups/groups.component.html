@@ -1,0 +1,26 @@
+<navbar></navbar>
+<div *ngIf="userDetails">
+    <p *ngIf="!userDetails.groupId" class="text-center text-danger">You have not assigned to a group yet.</p>
+    <div *ngIf="userDetails.groupId" class="container">
+        <div class="w-100">
+            <h4 class="text-center">
+               <i class="bi bi-brightness-high" style="color: orange;"></i> 
+               {{userGroup.groupName}}
+               <i class="bi bi-brightness-high" style="color: orange;"></i>
+           </h4>
+        </div>
+        <div>
+            <span *ngIf="isManager" class="float-end text-white ps-1 pe-1" style="background-color: rgb(65, 65, 255); font-size: medium; font-weight: lighter; border-radius: 15px;">Manager</span>
+            <p class="text-capitalize ps-1 pe-1 text-white" style="background-color: rgb(254, 129, 129); width: min-content; border-radius: 15px;">{{userGroup.role}}</p>
+            <p class="text-muted" style="font-size: small;">Group ID : {{userGroup.groupId}}</p>
+            <p class="d-block" style="font-size: small;">Group Manager : {{userGroup.manager.name}} {{userGroup.manager.surname}}</p>
+        </div>
+        <div class="group-body">
+            <p *ngIf="!userGroup.tasks" class="text-danger text-center mt-5">
+                No task assigned to your group yet.
+            </p>
+        </div>
+    </div>
+</div>
+
+<footer></footer>

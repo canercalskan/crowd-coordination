@@ -4,6 +4,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database'
 import { Observable } from 'rxjs';
 import { UserModel } from '../models/user.model';
 import { setCookie , removeCookie} from 'typescript-cookie';
+import { GroupModel } from '../models/group.model';
 
 @NgModule()
 @Injectable({providedIn: 'root'})
@@ -44,6 +45,10 @@ export class AccountService {
     handleSignOut() : Promise<void> {
        removeCookie('firebase_user_key');
        return this.fireAuth.signOut();
+    }
+
+    getUserGroup(groupKey : string) {
+        return this.db.object<GroupModel>('groups/' + groupKey).valueChanges();
     }
 }
 
