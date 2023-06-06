@@ -6,6 +6,7 @@ import { PostModel } from "src/app/models/post.model";
 import { UserModel } from "src/app/models/user.model";
 import { AdminService } from "src/app/services/admin.service";
 import Swal from "sweetalert2";
+import { NotificationModel } from "src/app/models/notification.model";
 
 @Component({
     selector : 'admin-panel',
@@ -233,16 +234,48 @@ export class AdminPanelComponent implements OnInit{
 
     taskGroup(task: TaskModel) : void {
         task.status = false;
+        const newNotification : NotificationModel = {text:'You have a new task.'}
         if(!this.openedGroup!.tasks) {
             this.openedGroup!.tasks = [task];
+            this.openedGroup!.members.forEach(member => {
+                if(!member.notifications) {
+                    member.notifications = [newNotification]
+                }
+                else {
+                    member.notifications.push(newNotification)
+                }
+            })
+            if(!this.openedGroup!.manager.notifications || this.openedGroup!.manager.notifications.length === 0) {
+                this.openedGroup!.manager.notifications = [newNotification];
+            }
+            else {
+                this.openedGroup!.manager.notifications.push(newNotification);
+            }
             this.adminService.updateGroup(this.openedGroup!);
+            this.adminService.updateUsers(this.openedGroup!);
             Swal.fire('Success!' , 'The task has been assigned.' , 'success').then(() => {
                 this.closeTaskGroup()
             })
         }
         else {
+            this.openedGroup!.tasks = [task];
+            this.openedGroup!.members.forEach(member => {
+                if(!member.notifications) {
+                    member.notifications = [newNotification]
+                }
+                else {
+                    member.notifications.push(newNotification)
+                }
+            })
+            if(!this.openedGroup!.manager.notifications || this.openedGroup!.manager.notifications.length === 0) {
+                this.openedGroup!.manager.notifications = [newNotification];
+            }
+            else {
+                this.openedGroup!.manager.notifications.push(newNotification);
+            }
             this.openedGroup!.tasks.push(task);
             this.adminService.updateGroup(this.openedGroup!);
+            this.adminService.updateUsers(this.openedGroup!);
             Swal.fire('Success' , 'The task has been assigned' , 'success').then(() => {
                 this.closeTaskGroup()
             })

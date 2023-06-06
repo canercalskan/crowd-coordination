@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { AccountService } from "src/app/services/account.service";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
+import { UserModel } from "src/app/models/user.model";
+import { getCookie } from "typescript-cookie";
+
 @Component({
     selector : 'navbar',
     templateUrl : './navbar.component.html',
@@ -9,11 +12,15 @@ import { Router } from "@angular/router";
 })
 
 export class NavbarComponent implements OnInit {
-    displayName! : string
+    displayName! : string;
+    userDetails! : UserModel;
     constructor (private accountService : AccountService , private router : Router) {}
     ngOnInit(): void {
         this.accountService.getUser().subscribe(response => {
             this.displayName = response!.displayName!;
+        })
+        this.accountService.getUserDetails(getCookie('firebase_user_key')!).subscribe(r => {
+            this.userDetails = r!;
         })
     }
 

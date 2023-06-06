@@ -3,7 +3,7 @@
     <p *ngIf="!userDetails.groupId" class="text-center text-danger">You have not assigned to a group yet.</p>
     <div *ngIf="userDetails.groupId" class="container">
         <div class="w-100">
-            <h4 class="text-center">
+            <h4 class="text-center" *ngIf="userGroup">
                <i class="bi bi-brightness-high" style="color: orange;"></i> 
                {{userGroup.groupName}}
                <i class="bi bi-brightness-high" style="color: orange;"></i>
@@ -11,20 +11,20 @@
         </div>
         <div>
             <span *ngIf="isManager" class="float-end text-white ps-1 pe-1" style="background-color: rgb(65, 65, 255); font-size: medium; font-weight: lighter; border-radius: 15px;">Manager</span>
-            <p class="text-capitalize ps-1 pe-1 text-white" style="background-color: rgb(254, 129, 129); width: min-content; border-radius: 15px;">{{userGroup.role}}</p>
-            <p class="text-muted" style="font-size: small;">Group ID : {{userGroup.groupId}}</p>
-            <p class="d-block" style="font-size: small;">Group Manager : {{userGroup.manager.name}} {{userGroup.manager.surname}}</p>
-            <span class="text-center" style="font-size: small;" id="memberscount" (click)="openMembers()">{{userGroup.members.length}} members</span>
+            <p class="text-capitalize ps-1 pe-1 text-white" style="background-color: rgb(254, 129, 129); width: min-content; border-radius: 15px;" *ngIf="userGroup">{{userGroup.role}}</p>
+            <p class="text-muted" style="font-size: small;" *ngIf="userGroup">Group ID : {{userGroup.groupId}}</p>
+            <p class="d-block" style="font-size: small;" *ngIf="userGroup">Group Manager : {{userGroup.manager.name}} {{userGroup.manager.surname}}</p>
+            <span class="text-center" style="font-size: small;" id="memberscount" (click)="openMembers()" *ngIf="userGroup">{{userGroup.members.length}} members</span>
             <div id="members" *ngIf="membersClicked">
                 <i class="bi bi-x-lg text-danger" style="position: absolute; left: 10px; top: 10px;" (click)="closeMembers()"></i>
-                <h6 class="text-info">Members of {{userGroup.groupName}}</h6>
+                <h6 class="text-info" *ngIf="userGroup">Members of {{userGroup.groupName}}</h6>
                 <ul *ngIf="membersClicked"> 
                     <li class="text-capitalize" *ngFor="let member of userGroup.members">{{member.name}} {{member.surname}}</li>
                 </ul>
             </div>
             <p style="font-size: small; color: #fe7171; width:fit-content;" id="closedTasks" class="text-decoration-underline" (click)="openClosedTasks()">
-                <span *ngIf="userGroup.closedTasks">{{userGroup.closedTasks.length}}</span> 
-                <span *ngIf="!userGroup.closedTasks">0</span>
+                <span *ngIf="userGroup && userGroup.closedTasks">{{userGroup.closedTasks.length}}</span> 
+                <span *ngIf="!userGroup || !userGroup.closedTasks">0</span>
                  closed tasks.
             </p>
             <div *ngIf="closedTasksClicked" id="closedTasksTable">
@@ -54,11 +54,11 @@
             </div>
         </div>
         <div class="group-body">
-            <p *ngIf="!userGroup.tasks" class="text-danger text-center mt-5">
+            <p *ngIf="!userGroup || !userGroup.tasks" class="text-danger text-center mt-5">
                 No task assigned to your group yet.
             </p>
         </div>
-        <table class="table table-striped mt-2" *ngIf="userGroup.tasks">
+        <table class="table table-striped mt-2" *ngIf="userGroup && userGroup.tasks">
             <thead>
               <tr>
                 <th scope="col">Group Name</th>
