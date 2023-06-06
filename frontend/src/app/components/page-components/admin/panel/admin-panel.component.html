@@ -42,13 +42,14 @@
   </div>
 
   <div class="groups-field" *ngIf="groupsClicked">
-    <h4 class="ms-5 mt-5">New Group</h4>
+    <h4 class="ms-5 mt-5" *ngIf="showGroupCreate">New Group</h4>
+    <h4 class="ms-5 mt-5" *ngIf="showGroupList">Manage Groups <span *ngIf="allGroups && allGroups.length > 0">({{allGroups.length}})</span></h4>
     <div class="container">
       <div class="switches-container">
         <input type="radio" id="switchMonthly" name="switchPlan" value="create" checked="checked" (change)="handleGroupsChange($event)" />
         <input type="radio" id="switchYearly" name="switchPlan" value="list" (change)="handleGroupsChange($event)" />
         <label for="switchMonthly">Create</label>
-        <label for="switchYearly">List</label>
+        <label for="switchYearly">Manage</label>
         <div class="switch-wrapper">
           <div class="switch">
             <div>Create</div>
@@ -97,7 +98,49 @@
           <button type="submit" class="btn btn-success w-25">Create</button>
         </form>
     </div>
-    <div *ngIf="showGroupList">List</div>
+    <div *ngIf="showGroupList">
+        <p *ngIf="!allGroups || allGroups.length === 0" class="text-danger text-center">There are no groups created.</p>
+        <table class="table table-striped mt-2" *ngIf="allGroups && allGroups.length > 0">
+          <thead>
+            <tr>
+              <th scope="col">Group Name</th>
+              <th scope="col">Group Role</th>
+              <th scope="col">Manager Email</th>
+              <th scope="col">Manager Name</th>
+              <th scope="col"># Members</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let group of allGroups">
+              <td class="text-danger">{{group.groupName}}</td>
+              <td>{{group.role}}</td>
+              <td><a href="mailto:{{group.manager.email}}">{{group.manager.email}}</a></td>
+              <td>{{group.manager.name}} {{group.manager.surname}}</td>
+              <td>{{group.members.length}}</td>
+              <td>
+                  <p class="text-danger clickable" (click)="deleteGroup(group)">Delete</p>
+                  <p class="text-info clickable" (click)="openTaskGroup(group)">Task</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    <form *ngIf="openedGroup" id="taskForm" #taskForm = 'ngForm' (submit)="taskGroup(taskForm.value); taskForm.reset()" ngNativeValidate>
+      <i class="bi bi-x-lg text-danger float-end" (click)="closeTaskGroup()"></i>
+      <h6 class="mb-3">New task for <span class="text-primary">{{openedGroup.groupName}}</span></h6>
+        <div class="row">
+            <div class="col">
+                <label for="title">Task Title</label>
+                <input name="title" type="text" ngModel required>
+            </div>
+            <div class="col">
+                <label for="details">Task Details</label>
+                <input name="details" type="text" ngModel required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-3 w-25">Assign</button>
+    </form>
   </div>
 
   <div class="requests-field" *ngIf="requestsClicked">

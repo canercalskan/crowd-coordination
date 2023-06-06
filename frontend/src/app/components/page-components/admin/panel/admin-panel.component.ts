@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { AnonymRequestModel } from "src/app/models/anonym-request.model";
 import { GroupModel } from "src/app/models/group.model";
+import { TaskModel } from "src/app/models/task.model"
 import { PostModel } from "src/app/models/post.model";
 import { UserModel } from "src/app/models/user.model";
 import { AdminService } from "src/app/services/admin.service";
 import Swal from "sweetalert2";
+
 @Component({
     selector : 'admin-panel',
     templateUrl : './admin-panel.component.html',
@@ -30,6 +32,9 @@ export class AdminPanelComponent implements OnInit{
     freeManagers! : UserModel[];
     selectedUsers : UserModel[] = [];
     selectedManager! : UserModel | null;
+    allGroups! : GroupModel[];
+    taskOpened: boolean = false;
+    openedGroup! : GroupModel | null;
     constructor (private adminService : AdminService) {}
    async ngOnInit() {
     Swal.showLoading();
@@ -39,8 +44,12 @@ export class AdminPanelComponent implements OnInit{
         } , error => {
             Swal.fire('Error' , 'Something went wrong, please contact the developers (code : ' + error.code+')');
         })
+        this.adminService.getAllGroups().subscribe(response => {
+            this.allGroups = response;
+        })
         Swal.close();
     }
+
     routeUsers() : void {
         this.adminService.getAllUsers().subscribe(response => {
             this.allUsers = response
@@ -51,6 +60,7 @@ export class AdminPanelComponent implements OnInit{
         this.requestsClicked = false;
         this.usersClicked = true;
     }
+
     routeRequests() : void {
         this.postsClicked = false;
         this.tasksClicked = false;
@@ -63,7 +73,6 @@ export class AdminPanelComponent implements OnInit{
         this.adminService.getAllUsers().subscribe(response => {
             this.freeUsers = response.filter(user => (user.groupId === null || user.groupId === undefined) && user.role !== 'Manager');
             this.freeManagers = response.filter(user => (user.groupId === null || user.groupId === undefined) && user.role === 'Manager')
-
         })
         this.postsClicked = false;
         this.tasksClicked = false;
@@ -126,7 +135,6 @@ export class AdminPanelComponent implements OnInit{
             this.allRequests = this.tempAllRequests.filter(request => request.status === 'Done');
         }
     }
-
 
     handleConfirmPost(postId : string) : void {
         this.adminService.confirmPost(postId).then(() => {
@@ -198,6 +206,46 @@ export class AdminPanelComponent implements OnInit{
 
         else {
             Swal.fire('Error' , 'Please select at least 1 member and only 1 manager', 'error')
+        }
+    }
+    
+    deleteGroup(group: GroupModel) : void {
+        this.adminService.deleteGroup(group.groupId).then(() => {
+            group.members.forEach(member => {
+                member.groupId = null;
+            })
+            group.manager.groupId = null;
+        }).then(() => {
+            this.adminService.updateUsers(group);
+        }).finally(() => {
+            Swal.fire('Info', 'Group deleted.' , 'info');
+        })
+    }
+
+    openTaskGroup(group : GroupModel) : void {
+        this.taskOpened = true;
+        this.openedGroup = group
+    }
+
+    closeTaskGroup() : void {
+        this.openedGroup = null;
+    }
+
+    taskGroup(task: TaskModel) : void {
+        task.status = false;
+        if(!this.openedGroup!.tasks) {
+            this.openedGroup!.tasks = [task];
+            this.adminService.updateGroup(this.openedGroup!);
+            Swal.fire('Success!' , 'The task has been assigned.' , 'success').then(() => {
+                this.closeTaskGroup()
+            })
+        }
+        else {
+            this.openedGroup!.tasks.push(task);
+            this.adminService.updateGroup(this.openedGroup!);
+            Swal.fire('Success' , 'The task has been assigned' , 'success').then(() => {
+                this.closeTaskGroup()
+            })
         }
     }
 }

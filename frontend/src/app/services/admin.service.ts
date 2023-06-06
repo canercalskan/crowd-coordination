@@ -43,6 +43,10 @@ export class AdminService {
         return this.fireDB.list<AnonymRequestModel>('anonym-requests').valueChanges();
     }
 
+    getAllGroups() {
+        return this.fireDB.list<GroupModel>('groups').valueChanges();
+    }
+
     getAllPosts() {
         return this.fireDB.list<PostModel>('posts').valueChanges();
     }
@@ -69,6 +73,10 @@ export class AdminService {
 
     updateGroup(groupData : GroupModel) {
         return this.fireDB.object<GroupModel>('groups/' + groupData.groupId).update(groupData);
+    }
+
+    deleteGroup(id: string) {
+        return this.fireDB.list<GroupModel>('groups').remove(id);
     }
 
     updateUsers(groupData : GroupModel) {

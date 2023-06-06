@@ -12,6 +12,6 @@ export interface UserModel {
     role : string,
     gsm : string,
     verified : boolean,
-    groupId : string,
+    groupId : string | null,
     //posts : PostModel[]
 }
