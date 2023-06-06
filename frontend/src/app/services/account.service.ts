@@ -50,5 +50,9 @@ export class AccountService {
     getUserGroup(groupKey : string) {
         return this.db.object<GroupModel>('groups/' + groupKey).valueChanges();
     }
+
+    updateGroup(groupData : GroupModel) {
+        return this.db.object<GroupModel>('groups/' + groupData.groupId).update(groupData);
+    }
 }
 

@@ -1,0 +1,54 @@
+#members {
+    padding: 1rem 2rem;
+    width: 50vw;
+    height: 50vh;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.952);
+    background: rgba( 255, 255, 255, 0.8 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 16.5px );
+    -webkit-backdrop-filter: blur( 16.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+#members ul {
+    list-style:upper-roman;
+}
+
+#closedTasksTable {
+    padding: 1rem 2rem;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.952);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#closedTasksTable table {
+    width: 60%;
+}
+
+#memberscount{
+    text-decoration: underline;
+    color: rgb(0, 166, 255);
+}
+
+#memberscount:hover , #closedTasks:hover{
+    cursor: pointer;
+}
+
+.bi-x-lg:hover {
+    cursor: pointer;
+}

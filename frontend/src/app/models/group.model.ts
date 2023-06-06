@@ -7,5 +7,6 @@ export interface GroupModel {
     members : UserModel[],
     role : string,
     manager : UserModel,
-    tasks : TaskModel[]
+    tasks : TaskModel[],
+    closedTasks : TaskModel[]
 }

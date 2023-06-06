@@ -14,12 +14,73 @@
             <p class="text-capitalize ps-1 pe-1 text-white" style="background-color: rgb(254, 129, 129); width: min-content; border-radius: 15px;">{{userGroup.role}}</p>
             <p class="text-muted" style="font-size: small;">Group ID : {{userGroup.groupId}}</p>
             <p class="d-block" style="font-size: small;">Group Manager : {{userGroup.manager.name}} {{userGroup.manager.surname}}</p>
+            <span class="text-center" style="font-size: small;" id="memberscount" (click)="openMembers()">{{userGroup.members.length}} members</span>
+            <div id="members" *ngIf="membersClicked">
+                <i class="bi bi-x-lg text-danger" style="position: absolute; left: 10px; top: 10px;" (click)="closeMembers()"></i>
+                <h6 class="text-info">Members of {{userGroup.groupName}}</h6>
+                <ul *ngIf="membersClicked"> 
+                    <li class="text-capitalize" *ngFor="let member of userGroup.members">{{member.name}} {{member.surname}}</li>
+                </ul>
+            </div>
+            <p style="font-size: small; color: #fe7171; width:fit-content;" id="closedTasks" class="text-decoration-underline" (click)="openClosedTasks()">
+                <span *ngIf="userGroup.closedTasks">{{userGroup.closedTasks.length}}</span> 
+                <span *ngIf="!userGroup.closedTasks">0</span>
+                 closed tasks.
+            </p>
+            <div *ngIf="closedTasksClicked" id="closedTasksTable">
+                <h5 class="text-info">Closed tasks by {{userGroup.groupName}}</h5>
+                <i class="bi bi-x-lg text-danger fs-3" style="position: absolute; top: 27%; left: 27%;" (click)="closeClosedTasks()"></i>
+                <p *ngIf="!userGroup.closedTasks || userGroup.closedTasks.length === 0" class="text-danger">Your group has not closed any tasks yet.</p>
+                <table class="table table-striped mt-2" *ngIf="userGroup.closedTasks">
+                    <thead>
+                      <tr>
+                        <th scope="col">Group Name</th>
+                        <th scope="col">Given By</th>
+                        <th scope="col">Task Title</th>
+                        <th scope="col">Task Details</th>
+                        <th scope="col" class="text-center">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let task of userGroup.closedTasks">
+                        <td class="">{{userGroup.groupName}}</td>
+                        <td class="text-danger">Admin</td>
+                        <td>{{task.title}}</td>
+                        <td>{{task.details}}</td>
+                        <td style="color: green; text-decoration: underline;">Done</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
         </div>
         <div class="group-body">
             <p *ngIf="!userGroup.tasks" class="text-danger text-center mt-5">
                 No task assigned to your group yet.
             </p>
         </div>
+        <table class="table table-striped mt-2" *ngIf="userGroup.tasks">
+            <thead>
+              <tr>
+                <th scope="col">Group Name</th>
+                <th scope="col">Given By</th>
+                <th scope="col">Task Title</th>
+                <th scope="col">Task Details</th>
+                <th scope="col" class="text-center">Manager Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of userGroup.tasks">
+                <td class="">{{userGroup.groupName}}</td>
+                <td class="text-danger">Admin</td>
+                <td>{{task.title}}</td>
+                <td>{{task.details}}</td>
+                <td class="d-flex justify-content-center align-items-center">
+                    <button class="btn btn-success me-2" (click)="markDone(task)">Done</button>
+                    <button class="btn btn-danger" (click)="markCancel(task)">Cancel</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
     </div>
 </div>
 

@@ -1,3 +1,5 @@
+import { NotificationModel } from "./notification.model";
+
 export interface UserModel {
     uid : string,
     key : string;
@@ -13,5 +15,5 @@ export interface UserModel {
     gsm : string,
     verified : boolean,
     groupId : string | null,
-    //posts : PostModel[]
+    notifications: NotificationModel[],
 }
