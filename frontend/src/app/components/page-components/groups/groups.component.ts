@@ -82,13 +82,24 @@ export class GroupsComponent implements OnInit {
         }
     }
 
-    markCancel(task: TaskModel) : void {
-        if(this.userGroup.manager.uid === this.userDetails.uid) {
-
+    markCancel(cancel: TaskModel) : void {
+        if(!cancel.mandatory) {
+            if(this.userGroup.manager.uid === this.userDetails.uid) {
+                this.userGroup.tasks = this.userGroup.tasks.filter(task => task !== cancel);
+                this.accountService.updateGroup(this.userGroup).then(() => {
+                    Swal.fire('OK.' , 'Task cancelled, note that if you cancel too many tasks your managership will be taken by admins.' , 'warning');
+                })
+                .catch(error => {
+                    Swal.fire('Error' , 'Something went wrong.' , 'error')
+                })
+            }
+            
+            else {
+                Swal.fire('Info' , 'Only group manager can do this action' , 'info')
+            }
         }
-        
         else {
-            Swal.fire('Info' , 'Only group manager can do this action' , 'info')
+            Swal.fire('Error' , 'This is a Mandatory task, you cannot cancel it.' , 'error')
         }
     }
 }

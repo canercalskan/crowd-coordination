@@ -14,7 +14,10 @@
             <span *ngIf="userDetails && userDetails.notifications" id="not_count">{{userDetails.notifications.length}}</span>
             <div class="dropdown-content">
                 <ul *ngIf="userDetails && userDetails.notifications" style="list-style: none; margin-left: 0; padding-left: 0;">
-                    <li *ngFor="let notification of userDetails.notifications" class="text-primary" style="font-size: small;">{{notification.text}}</li>
+                    <li *ngFor="let notification of userDetails.notifications" class="text-primary" style="font-size: small;">
+                        {{notification.text}}
+                        <i class="bi bi-x-lg text-danger float-end" style="font-size: small;" (click)="removeTask()"></i>
+                    </li>
                 </ul>
             </div>
           </li>

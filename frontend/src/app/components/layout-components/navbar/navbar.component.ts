@@ -33,4 +33,20 @@ export class NavbarComponent implements OnInit {
             Swal.fire('Something went wrong' , 'Please contact us with the code < '+ error.code + '>' , 'error');
         })
     }
+
+    removeTask() : void {
+        if(this.userDetails.notifications.length > 0) {
+             this.userDetails.notifications.pop();
+             this.accountService.updateRegisterData(this.userDetails).then(r => {
+                Swal.fire('OK' , 'Task Removed' , 'success');
+             }).catch(error => {
+                Swal.fire('Error' ,'Something went wrong, please try again later.', 'error')
+             })
+        }
+        else {
+            Swal.fire('Error' , 'Something went wrong, please try again later.' ,'error').then(()=>{
+                location.reload();
+            })
+        }
+    }
 }
