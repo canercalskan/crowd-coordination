@@ -72,7 +72,7 @@ export class GroupsComponent implements OnInit {
 
             this.accountService.updateGroup(this.userGroup).then(() => {
                 Swal.fire('Success!', 'Task ' + done.title + ' marked as Done' , 'success')
-            }).catch(error => {
+            }).catch(() => {
                 Swal.fire('Error' , 'Something went wrong, please try again later.' , 'error')
             })
         }
