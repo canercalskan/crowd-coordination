@@ -28,7 +28,7 @@ Run the following command to clone the project repository:
 <b> Step 4: Install Project Dependencies </b> <br>
 Navigate to the project directory:
 
-<i> cd <project_directory> </i>
+<i> cd <your_local_filename/frontend> </i>
 
 Run the following command to install project dependencies:
 
@@ -41,7 +41,7 @@ This will download and install all the required dependencies specified in the pr
 Open a terminal or command prompt.
 Navigate to the project directory:
 
-<i> cd <project_directory> </i>
+<i> cd <your_local_filename/frontend> </i>
 
 Run the following command to compile and serve the Angular application:
 
